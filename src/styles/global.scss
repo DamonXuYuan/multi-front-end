@@ -1,0 +1,41 @@
+// 全局class
+// @font-face {
+//   font-weight: normal;
+//   font-family: 'Bai Jamjuree';
+//   font-style: normal;
+//   src: url('/fonts/BaiJamjuree-Medium.ttf') format('truetype');
+//   font-display: block;
+// }
+// @font-face {
+//   font-weight: normal;
+//   font-family: 'Bai Jamjuree SemiBold';
+//   font-style: normal;
+//   src: url('/fonts/BaiJamjuree-SemiBold.ttf') format('truetype');
+//   font-display: block;
+// }
+
+// 单行文本溢出
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// 清浮动
+.clearfix {
+  *zoom: 1;
+
+  &::before,
+  &::after {
+    display: table;
+    clear: both;
+    content: ' ';
+  }
+
+  &::after {
+    display: block;
+    height: 1px;
+    margin-top: -1px;
+    visibility: hidden;
+  }
+}

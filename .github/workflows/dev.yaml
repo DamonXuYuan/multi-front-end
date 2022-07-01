@@ -1,0 +1,74 @@
+name: ci-dev
+
+on:
+  push:
+    branches: ['develop']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+        with:
+          always-auth: false
+          node-version: 14.x
+
+      - name: Checkout code repo
+        uses: actions/checkout@v2
+
+      - name: Add deploy private key
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.STATIC_SERVER_PK }}" > ~/.ssh/id_rsa
+          sed -i -e "s#\\\\n#\n#g" ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Submodule pkgs
+        run: git submodule update --init
+
+      - name: Check cache for yarn
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-dev-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install yarn
+        run: yarn install
+
+      - name: Build and export project
+        run: |
+          yarn build
+          yarn export
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: beat-drum
+          path: out/*
+          retention-days: 1
+
+  deploy-to-server:
+    name: deploy the beat-drum website frontend to static server
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: beat-drum
+
+      - name: Deploy index to server
+        uses: easingthemes/ssh-deploy@v2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.STATIC_SERVER_PK }}
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: '.'
+          REMOTE_HOST: ${{ secrets.STATIC_TEST_SERVER_HOST }}
+          REMOTE_USER: 'root'
+          TARGET: '/usr/local/www/beat-drum/'
+
+      - name: Delete artifact
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: beat-drum
