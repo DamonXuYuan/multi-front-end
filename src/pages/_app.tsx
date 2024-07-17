@@ -22,7 +22,7 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>{`${pageProps?.title || publicRuntimeConfig.title}`}</title>
+        <title>multi-front-end</title>
         <meta charSet="utf-8" />
         <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes" />
         <meta content="yes" name="apple-mobile-web-app-capable" />

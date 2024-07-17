@@ -13,7 +13,7 @@ function Index() {
           color="transparent"
           backgroundImage="linear-gradient(180deg, #5E81FF 0%, #3A68E7 100%)"
         >
-          EVA BASE
+          multi-front-end
         </Text>
       </HStack>
       <HStack spacing="30px" color="blue.400" textStyle="14">
