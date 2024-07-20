@@ -13,7 +13,7 @@ function App() {
       }}
       margin=" 0 auto"
     >
-      fornt-module
+      fornt-module-test
     </Box>
   )
 }
