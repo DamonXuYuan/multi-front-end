@@ -1,3 +1,24 @@
 {
-  "title": "multi-front-end"
+  "title": "Home",
+  "loginUserTitle": "欢迎来到Multi！",
+  "loginUserName": "请输入用户名",
+  "loginUserPWD": "请输入密码",
+  "forgetPWD": "忘记密码?",
+  "loginButton": "登录",
+  "registrationButton": "注册",
+  "registrationTitle": "用户注册",
+  "registrationUserName": "请输入用户名",
+  "registrationUserPWD": "请输入密码",
+  "registrationUserPWDConfirm": "请确认密码",
+  "registrationUserEmail": "请输入电子邮箱",
+  "captcha": "请输入验证码",
+  "captchaButton": "获取验证码",
+  "invitationCode": "邀请码（如有）",
+  "registrationTips1": "已有账号，",
+  "registrationTips2": "立即登录",
+  "registrationHeader": "注册成功",
+  "registrationSuccessTitle": "恭喜您，注册成功！",
+  "registrationSuccessTips1": "作为Multi猫提平台的新用户，我们为您准备了",
+  "registrationSuccessTips2": "NFT礼物！",
+  "registrationSuccessButton": "点击按钮，即刻领取神秘礼物！"
 }

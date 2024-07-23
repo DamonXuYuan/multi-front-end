@@ -20,7 +20,10 @@ const colors = {
     '100': '#FFFFFF',
     '200': '#F9FAFE',
   },
-  black: '#000000',
+  black: {
+    '100': '#000000',
+    '200': '#0F182C',
+  },
   blue: {
     '100': '#3A68E7',
     '200': '#213C86',
@@ -30,9 +33,15 @@ const colors = {
     '600': '#D7E1FF',
   },
   green: {
-    '200': '#9DDB59',
+    '100': '#51CEAA',
   },
-  yellow: { '200': '#EDAB06' },
+  yellow: {
+    '100': '#EDAB06',
+  },
+  gray: {
+    '100': '#EAEAEA',
+    '200': '#A7B0BF',
+  },
 }
 
 const textStyles = {
@@ -85,7 +94,7 @@ const theme = extendTheme({
   config,
   colors,
   fonts: {
-    body: '"Bai Jamjuree Regular", "SF Pro Display", "PingFang SC", "Source Han Sans CN", "Microsoft Yahei"',
+    body: '"PingFang SC", "SF Pro Display", "Bai Jamjuree Regular", "Source Han Sans CN", "Microsoft Yahei"',
   },
   sizes: {
     xl: '1080px',

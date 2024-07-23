@@ -3,19 +3,7 @@ import { Box } from '@chakra-ui/react'
 import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 
 function App() {
-  return (
-    <Box
-      maxW={{
-        lg: '1366px',
-      }}
-      minW={{
-        lg: '1024px',
-      }}
-      margin=" 0 auto"
-    >
-      fornt-module-test
-    </Box>
-  )
+  return <Box margin=" 0 auto">fornt-module-test</Box>
 }
 
 export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
