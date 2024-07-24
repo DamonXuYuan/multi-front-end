@@ -4,8 +4,10 @@ import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import { useTranslation } from 'next-i18next'
 import cassetteNFT from '@/assets/imgs/cassetteNFT.png'
 import BaseButton from '@/components/BaseButton'
+import { useRouter } from 'next/router'
 
 function App() {
+  const router = useRouter()
   const { t } = useTranslation(['home'])
 
   return (
@@ -27,7 +29,9 @@ function App() {
           {t('registrationSuccessTips2') as string}
         </Text>
       </Box>
-      <BaseButton>{t('registrationSuccessButton') as string}</BaseButton>
+      <BaseButton onClick={() => router.push('/')}>
+        {t('registrationSuccessButton') as string}
+      </BaseButton>
     </Flex>
   )
 }
