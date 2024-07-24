@@ -48,7 +48,7 @@ const TabBar: React.FC = () => {
   const [activeIndex, setActiveIndex] = React.useState(0)
   const router = useRouter()
   const navItems: NavItem[] = [
-    { icon: Home, url: '/', label: '首页', isActive: activeIndex === 0 },
+    { icon: Home, url: '/home', label: '首页', isActive: activeIndex === 0 },
     { icon: Shuffle, url: '', label: '抽签', isActive: activeIndex === 1 },
     { icon: LockIcon, url: '', label: '质押', isActive: activeIndex === 2 },
     { icon: User, url: '/user', label: '我的', isActive: activeIndex === 3 },

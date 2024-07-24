@@ -5,15 +5,22 @@ interface TopNavbarProps extends BoxProps {
   leftContent?: React.ReactNode
   rightContent?: React.ReactNode
   title: string
+  titleColor?: string
   isFixed?: boolean
 }
 
-const Navbar = ({ leftContent, rightContent, title, isFixed = false, ...rest }: TopNavbarProps) => {
+const Navbar = ({
+  titleColor,
+  leftContent,
+  rightContent,
+  title,
+  isFixed = false,
+  ...rest
+}: TopNavbarProps) => {
   return (
     <Box
       as="nav"
       bg="white"
-      boxShadow="md"
       width="100%"
       zIndex={1000}
       {...(isFixed
@@ -22,7 +29,9 @@ const Navbar = ({ leftContent, rightContent, title, isFixed = false, ...rest }: 
             top: 0,
             left: 0,
           }
-        : {})}
+        : {
+            position: 'relative',
+          })}
       {...rest}
     >
       <Flex
@@ -34,10 +43,16 @@ const Navbar = ({ leftContent, rightContent, title, isFixed = false, ...rest }: 
         px={4}
       >
         <Box width="80px">{leftContent}</Box>
-        <Heading size="md" textAlign="center" flex={1} color="black">
+        <Heading size="md" textAlign="center" flex={1} color={titleColor || 'black'}>
           {title}
         </Heading>
-        <Box width="80px" textAlign="right">
+        <Box
+          width="80px"
+          textAlign="right"
+          display="flex"
+          flexDirection="row"
+          justifyContent="flex-end"
+        >
           {rightContent}
         </Box>
       </Flex>

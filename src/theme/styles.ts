@@ -3,7 +3,7 @@ export default {
     return {
       'html, body': {
         fontSize: '12',
-        color: 'blue.100',
+        color: 'black',
         bgColor: 'white.200',
       },
 
