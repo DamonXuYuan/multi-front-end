@@ -1,80 +1,83 @@
-import { config } from '@/config'
-import axios, { AxiosRequestConfig } from 'axios'
-import { errorCode, errorMsg, handleCommonError, handleNoCommontError } from './errorHandle'
-import { getLocalStorage } from '@/utils/storage'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
-type requestOptions = AxiosRequestConfig & {
-  url: string
-  noLoading?: boolean
-  body?: any
-  headers?: any
-}
-const { apiUrl, baseUrl, authKey } = config
-axios.interceptors.response.use(
-  (response: any) => response.data,
-  (error: any) => {
-    console.log(error)
-    const { response } = error
-    if (response) {
-      const { status, data, config } = response
-      data.message = data.message || errorMsg
-      const { code, message } = data
-      if (status === 400) {
-        handleCommonError(data, config)
-        const errorObj = { code, message }
-        if (data && data.code >= 240015 && data.code <= 240021) {
-          return Promise.reject(new Error(JSON.stringify(errorObj)))
-        }
-        if (data && data.code === errorCode.c330024) {
-          return Promise.reject(new Error(JSON.stringify(errorObj)))
-        }
-        return Promise.reject(message)
+// const baseURLMap = new Map() //不同baseUrl的映射
+
+export default class Ajax {
+  constructor(baseUrl = '') {
+    this.baseUrl = baseUrl
+  }
+  public static setHeader(headerName: string, value: string) {
+    if (!headerName) {
+      console.error('setHeader', '参数不合法')
+      return
+    }
+    axios.interceptors.request.use(
+      (config: any) => {
+        config.headers[headerName] = value
+        return config
+      },
+      (err) => {
+        return Promise.reject(err)
       }
-      // 404 502 ..
-      // const msg = errorMsg
-      handleNoCommontError(errorMsg)
-      return Promise.reject(errorMsg)
+    )
+  }
+
+  private baseUrl = '' //TODO:添加baseUrl
+
+  public request(params: AxiosRequestConfig): Promise<any> {
+    const newParams = {
+      ...params,
+      // TODO:其他默认的值
     }
-    if (error.code === 'ECONNABORTED') {
-      const timeoutMsg = '请求超时，请稍后再试'
-      handleNoCommontError(timeoutMsg)
-      return Promise.reject(timeoutMsg)
+    return new Promise((resolve) => {
+      axios({ ...newParams, url: `${this.baseUrl}${params.url}` })
+        .then((res: AxiosResponse) => {
+          if (res.status === 200) {
+            switch (res?.data?.code) {
+              case 0:
+                resolve(res?.data)
+                break
+              case 401:
+                // TODO:鉴权
+                break
+              default:
+                resolve(res?.data)
+                break
+            }
+          }
+        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        .catch((err: AxiosError) => {
+          // TODO: 错误处理
+          resolve(err?.response)
+        })
+    })
+  }
+  private queryString(url: string, query?: Record<string, string>): string {
+    const str = []
+    for (const key in query) {
+      str.push(key + '=' + query[key])
     }
-    const networkErrorMsg = '您的网络出现问题，请检查网络重试'
-    handleNoCommontError(networkErrorMsg)
-    return Promise.reject(networkErrorMsg)
+    const paramStr = str.join('&')
+    return paramStr ? `${url}?${paramStr}` : url
   }
-)
-export default async function request(options: requestOptions) {
-  const { url } = options
-  // delete options.url
-  const hasHttp = url.indexOf('http://') > -1 || url.indexOf('https://') > -1
-  const hasApi = !(url.indexOf('fluxv2') === -1)
-  const Authorization = getLocalStorage(authKey)
-  let headers = {}
-  if (options) {
-    headers = options.headers || {}
+
+  public get(url = '', params: Record<string, string> = {}): Promise<any> {
+    return this.request({
+      method: 'get',
+      url: this.queryString(`${url}`, params),
+    })
   }
-  const defaultOptions = {
-    headers: {
-      ...headers,
-      [authKey]: Authorization,
-    },
-    credentials: 'include',
-    timeout: 10000,
-    withCredentials: true,
-    validateStatus(status: any) {
-      return status >= 200 && status < 300
-    },
+
+  public setBaseUrl = (url: string) => {
+    this.baseUrl = url
   }
-  if (options) {
-    delete options.headers
+
+  public post(url: string, params?: Record<string, any>): Promise<any> {
+    return this.request({
+      method: 'post',
+      url: `${url}`,
+      data: params,
+    })
   }
-  const newOptions: requestOptions = { ...defaultOptions, ...options }
-  newOptions.data = newOptions.body
-  delete newOptions.body
-  const newUrl = `${hasHttp || process.env.REACT_APP_CONFIG_ENV === 'dev' ? '' : apiUrl}${
-    hasApi ? '' : baseUrl
-  }${url}`
-  return axios(newUrl, newOptions)
 }

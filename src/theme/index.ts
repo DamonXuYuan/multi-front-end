@@ -42,6 +42,9 @@ const colors = {
     '100': '#EAEAEA',
     '200': '#A7B0BF',
   },
+  red: {
+    '100': '#CE5B51',
+  },
 }
 
 const textStyles = {

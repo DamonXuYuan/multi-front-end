@@ -2,13 +2,15 @@ import React, { useState } from 'react'
 import { Text, Flex, Image, Input, InputProps, useInterval } from '@chakra-ui/react'
 import { useTranslation } from 'next-i18next'
 import hideIcon from '@/assets/imgs/hideIcon.png'
+import showIcon from '@/assets/imgs/showIcon.png'
 
 interface IProps extends InputProps {
   captcha?: boolean
   password?: boolean
+  errorText?: string
 }
 
-function Index({ captcha, password, ...props }: IProps) {
+function Index({ captcha, password, errorText, ...props }: IProps) {
   const { t } = useTranslation(['home'])
   const [showPSD, setShowPSD] = useState(false)
   const [count, setCount] = useState(60)
@@ -27,9 +29,8 @@ function Index({ captcha, password, ...props }: IProps) {
   )
 
   return (
-    <Flex pos="relative" alignItems="center">
+    <Flex w="full" flexDir="column" pos="relative">
       <Input
-        w="full"
         h="48px"
         bgColor="white.100"
         color="black.200"
@@ -53,6 +54,11 @@ function Index({ captcha, password, ...props }: IProps) {
         }}
         {...props}
       />
+      {errorText && (
+        <Text color="red.100" fontSize="12px" lineHeight="24px" mt="8px">
+          {errorText}
+        </Text>
+      )}
       {captcha && (
         <Text
           color="green.100"
@@ -68,7 +74,7 @@ function Index({ captcha, password, ...props }: IProps) {
       )}
       {password && (
         <Image
-          src={showPSD ? hideIcon : hideIcon}
+          src={showPSD ? showIcon : hideIcon}
           w="16px"
           h="16px"
           pos="absolute"

@@ -44,6 +44,7 @@
     "react-toastify": "^8.0.3",
     "react-use": "^17.5.1",
     "sass": "^1.42.1",
+    "swr": "^2.2.5",
     "zustand": "^3.5.13"
   },
   "devDependencies": {

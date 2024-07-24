@@ -1,17 +1,72 @@
-import React, { useState } from 'react'
-import { Flex, Image, Text } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { Flex, Image, Text, useBoolean, useToast } from '@chakra-ui/react'
 import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import miniLogo from '@/assets/imgs/miniLogo.png'
 import { useTranslation } from 'next-i18next'
 import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
+import { userLogin } from '@/api/login'
+import { setLocalStorage } from '@/utils/storage'
 
 function App() {
+  const router = useRouter()
+  const toast = useToast()
   const { t } = useTranslation(['home'])
   const [userName, setUserName] = useState('')
   const [userPassword, setUserPassword] = useState('')
-  const router = useRouter()
+  const [loginClick, setLoginClick] = useBoolean(false)
+
+  const { data: userLoginData, isLoading: userLoginLoading } = useSWR(
+    userPassword && userPassword && loginClick ? [userLogin.key, loginClick] : null,
+    () =>
+      userLogin.fetcher({
+        email: userName,
+        password: userPassword,
+      }),
+    { revalidateOnFocus: false }
+  )
+
+  useEffect(() => {
+    if (!userLoginData) return
+    if (userLoginData?.code === 200) {
+      setLocalStorage('userInfo', userLoginData?.data)
+      router.push('/')
+    } else {
+      toast({
+        description: userLoginData?.msg,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      setLoginClick.off()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userLoginData])
+
+  // 点击登录，并检查是否为空
+  const login = () => {
+    if (userName === '') {
+      toast({
+        description: t('loginUserNameErr') as string,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      return
+    }
+    if (userPassword === '') {
+      toast({
+        description: t('loginUserPassWordErr') as string,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+      return
+    }
+    setLoginClick.on()
+  }
 
   return (
     <Flex
@@ -46,16 +101,18 @@ function App() {
           onChange={(val) => setUserName(val?.target?.value)}
         />
         <BaseInput
+          password
           mb="8px"
           placeholder={t('loginUserPWD')}
-          password
           value={userPassword}
           onChange={(val) => setUserPassword(val?.target?.value)}
         />
         <Text ml="auto" mb="40px" color="green.100" fontSize="12px" lineHeight="24px">
           {t('forgetPWD') as string}
         </Text>
-        <BaseButton mb="15px">{t('loginButton') as string}</BaseButton>
+        <BaseButton mb="15px" isLoading={userLoginLoading} onClick={() => login()}>
+          {t('loginButton') as string}
+        </BaseButton>
         <BaseButton
           bgColor="transparent"
           color="black.200"
