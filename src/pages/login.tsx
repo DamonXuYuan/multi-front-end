@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { userLogin } from '@/api/login'
 import { setLocalStorage } from '@/utils/storage'
+import { FailToast } from '@/components/BaseToast'
 
 function App() {
   const router = useRouter()
@@ -35,10 +36,10 @@ function App() {
       router.push('/')
     } else {
       toast({
-        description: userLoginData?.msg,
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{userLoginData?.msg}</FailToast>,
       })
       setLoginClick.off()
     }
@@ -49,19 +50,19 @@ function App() {
   const login = () => {
     if (userName === '') {
       toast({
-        description: t('loginUserNameErr') as string,
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{t('loginUserNameErr') as string}</FailToast>,
       })
       return
     }
     if (userPassword === '') {
       toast({
-        description: t('loginUserPassWordErr') as string,
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{t('loginUserPassWordErr') as string}</FailToast>,
       })
       return
     }

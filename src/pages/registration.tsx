@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { userRegister } from '@/api/login'
 import { setLocalStorage } from '@/utils/storage'
+import { FailToast } from '@/components/BaseToast'
 
 function App() {
   const { t } = useTranslation(['home'])
@@ -50,6 +51,7 @@ function App() {
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{userRegisterData?.data?.message}</FailToast>,
       })
       setRegister.off()
     }
@@ -62,20 +64,20 @@ function App() {
     const regexUser = /^.{6,12}$/
     if (!regexUser.test(userPassword)) {
       toast({
-        description: t('registrationErrorUserPassWord') as string,
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{t('registrationErrorUserPassWord') as string}</FailToast>,
       })
       return
     }
     // 检查两次输入是否一致
     if (userPassword !== comfirmUserPassword) {
       toast({
-        description: t('registrationErrorComfirmPassWord') as string,
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{t('registrationErrorComfirmPassWord') as string}</FailToast>,
       })
       return
     }
@@ -83,20 +85,20 @@ function App() {
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     if (!regexEmail.test(userEmail)) {
       toast({
-        description: t('registrationErrorEmail') as string,
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{t('registrationErrorEmail') as string}</FailToast>,
       })
       return
     }
     // 检查是否是6位验证码
     if (captcha.length !== 6) {
       toast({
-        description: t('registrationErrorCaptcha') as string,
         status: 'error',
         duration: 3000,
         isClosable: true,
+        render: () => <FailToast>{t('registrationErrorCaptcha') as string}</FailToast>,
       })
       return
     }
