@@ -1,10 +1,7 @@
-import { useEffect } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import Head from 'next/head'
-import getConfig from 'next/config'
 import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
-import { ToastContainer } from 'react-toastify'
 
 import { getI18nSSRProps, GetI18nStaticProps } from '@/utils/i18n'
 import theme from '@/theme'
@@ -12,13 +9,9 @@ import '@/styles/global.scss'
 import 'react-toastify/dist/ReactToastify.css'
 // import Header from '@/components/Header'
 
-const { publicRuntimeConfig } = getConfig()
+// const { publicRuntimeConfig } = getConfig()
 
 function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    window.zoConfig = publicRuntimeConfig
-  }, [])
-
   return (
     <>
       <Head>
@@ -33,7 +26,7 @@ function App({ Component, pageProps }: AppProps) {
           name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
         />
-        <link
+        {/* <link
           rel="shortcut icon"
           href={`${publicRuntimeConfig.cdn}/favicon.ico`}
           type="image/x-icon"
@@ -41,12 +34,11 @@ function App({ Component, pageProps }: AppProps) {
         <link
           href={`${publicRuntimeConfig.cdn}/images/apple-touch-icon-144-precomposed.png`}
           rel="apple-touch-icon-precomposed"
-        />
+        /> */}
       </Head>
       <ChakraProvider resetCSS theme={theme}>
         {/* <Header /> */}
         <Component {...(pageProps ?? {})} />
-        <ToastContainer />
       </ChakraProvider>
     </>
   )

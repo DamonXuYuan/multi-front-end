@@ -1,29 +1,54 @@
-import React from 'react'
-import { Text, Flex, HStack, Image, Button } from '@chakra-ui/react'
-import eva from '@/assets/imgs/eva.png'
+import React, { useEffect, useState } from 'react'
+import { Text, Flex, Image } from '@chakra-ui/react'
+import back from '@/assets/imgs/back.png'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 function Index() {
+  const { t } = useTranslation(['home'])
+  const [title, setTitle] = useState('')
+  const [showBack, setShowBack] = useState(true)
+  const router = useRouter()
+
+  useEffect(() => {
+    const name = router?.pathname
+    if (name === '/') {
+      setTitle(t('title'))
+      setShowBack(false)
+    } else if (name === '/registrations') {
+      setTitle(t('registrations'))
+      setShowBack(true)
+    } else if (name === '/registrationSuccess') {
+      setTitle(t('registrationHeader'))
+      setShowBack(true)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router])
+
+  const backClick = () => {
+    if (!showBack) return
+    router.back()
+  }
+
   return (
-    <Flex padding="30px 60px" bgColor="white.100" justify="space-between">
-      <HStack spacing="10px">
-        <Image src={eva} ignoreFallback />
-        <Text
-          textStyle="18"
-          backgroundClip="text"
-          color="transparent"
-          backgroundImage="linear-gradient(180deg, #5E81FF 0%, #3A68E7 100%)"
-        >
-          multi-front-end
-        </Text>
-      </HStack>
-      <HStack spacing="30px" color="blue.400" textStyle="14">
-        <Button bgColor="blue.100" color="white.100">
-          Connect Wallet
-        </Button>
-        <Button bgColor="blue.100" color="white.100">
-          Disconnect
-        </Button>
-      </HStack>
+    <Flex
+      display={router?.pathname !== '/login' ? 'flex' : 'none'}
+      h="44px"
+      alignItems="center"
+      padding="0 12px"
+      bgColor="white.100"
+      justify="space-between"
+    >
+      <Image
+        w="24px"
+        h="24px"
+        src={back}
+        ignoreFallback
+        opacity={showBack ? 1 : 0}
+        onClick={backClick}
+      />
+      <Text fontSize="18px">{title}</Text>
+      <Image w="24px" h="24px" opacity="0" />
     </Flex>
   )
 }

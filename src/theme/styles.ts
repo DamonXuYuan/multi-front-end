@@ -3,8 +3,8 @@ export default {
     return {
       'html, body': {
         fontSize: '12',
-        color: 'black',
-        bgColor: 'white.200',
+        color: 'black.200',
+        bgColor: 'white.100',
       },
 
       '*::-webkit-scrollbar': {
