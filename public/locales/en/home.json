@@ -30,5 +30,9 @@
   "registrationSuccessTips2": "NFT礼物！",
   "registrationSuccessButton": "点击按钮，即刻领取神秘礼物！",
   "lottery": "开奖",
-  "NumberOfParticipants": "参加人数"
+  "NumberOfParticipants": "参加人数",
+  "boxListPageTitle": "开盒记录",
+  "userPageTitle": "用户中心",
+  "BoxNFT": "盲盒NFT",
+  "copySuccess": "复制成功"
 }

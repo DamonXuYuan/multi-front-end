@@ -5,7 +5,8 @@ import { appWithTranslation } from 'next-i18next'
 import { getI18nSSRProps, GetI18nStaticProps } from '@/utils/i18n'
 import theme from '@/theme'
 import '@/styles/global.scss'
-import Header from '@/components/Header'
+import 'react-toastify/dist/ReactToastify.css'
+// import Header from '@/components/Header'
 
 // const { publicRuntimeConfig } = getConfig()
 
@@ -35,7 +36,7 @@ function App({ Component, pageProps }: AppProps) {
         /> */}
       </Head>
       <ChakraProvider resetCSS theme={theme}>
-        <Header />
+        {/* <Header /> */}
         <Component {...(pageProps ?? {})} />
       </ChakraProvider>
     </>
