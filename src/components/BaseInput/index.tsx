@@ -8,9 +8,10 @@ interface IProps extends InputProps {
   captcha?: boolean
   password?: boolean
   errorText?: string
+  captchaClick?: () => void
 }
 
-function Index({ captcha, password, errorText, ...props }: IProps) {
+function Index({ captcha, password, errorText, captchaClick, ...props }: IProps) {
   const { t } = useTranslation(['home'])
   const [showPSD, setShowPSD] = useState(false)
   const [count, setCount] = useState(60)
@@ -67,7 +68,12 @@ function Index({ captcha, password, errorText, ...props }: IProps) {
           pos="absolute"
           top="13px"
           right="0"
-          onClick={() => !isCounting && setIsCounting(true)}
+          onClick={() => {
+            if (!isCounting) {
+              setIsCounting(true)
+              captchaClick?.()
+            }
+          }}
         >
           {!isCounting ? (t('captchaButton') as string) : `${count}s`}
         </Text>
