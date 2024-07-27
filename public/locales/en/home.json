@@ -26,5 +26,9 @@
   "registrationSuccessTitle": "恭喜您，注册成功！",
   "registrationSuccessTips1": "作为Multi猫提平台的新用户，我们为您准备了",
   "registrationSuccessTips2": "NFT礼物！",
-  "registrationSuccessButton": "点击按钮，即刻领取神秘礼物！"
+  "registrationSuccessButton": "点击按钮，即刻领取神秘礼物！",
+  "boxListPageTitle": "开盒记录",
+  "userPageTitle": "用户中心",
+  "BoxNFT": "盲盒NFT",
+  "copySuccess": "复制成功"
 }

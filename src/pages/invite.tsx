@@ -1,23 +1,48 @@
-import React from 'react'
-import { Box, VStack, Text, Image, HStack } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { Box, VStack, Text, Image, HStack, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import { CircleX } from 'lucide-react'
 import inviteBg from '@/assets/imgs/inviteBg.png'
 import downloadIcon from '@/assets/imgs/download.png'
 import qrcodeBg from '@/assets/imgs/qrcodeBg.png'
+import { useTranslation } from 'next-i18next'
+import { CopyToClipboard } from "react-copy-to-clipboard"
 const InvitePage = () => {
+  const [code , setCode] = useState('')
+  const [inviteSrc, setInviteSrc] = useState('')
+  const { t } = useTranslation(['home'])
+  const toast = useToast()
   const router = useRouter()
   const handleBack = () => {
     router.back()
   }
+  const toQrcodePage = () => {
+    router.push({
+      pathname: '/inviteQr',
+      query: { inviteSrc }
+    });
+  }
+  const handleCopy = () => {
+    toast({
+      title: t('copySuccess'),
+      status: 'success',
+      isClosable: true,
+      duration: 3000
+    })
+  };
+  useEffect(() => {
+    setCode('133333')
+    setInviteSrc('http://www.baidu.com')
+  }
+  , [])
   return (
     <Box margin="auto" minHeight="100vh">
       <Navbar
         title=""
         bg="transparent"
         leftContent={<CircleX onClick={handleBack} color="white" />}
-        rightContent={<Image src={downloadIcon} w="24px" h="24px" />}
+        rightContent={<Image onClick={toQrcodePage} src={downloadIcon} w="24px" h="24px" />}
       />
       <Box px="30px">
         <Image
@@ -66,7 +91,7 @@ const InvitePage = () => {
               </Text>
               <HStack justifyContent="space-between" mt="5px">
                 <Text color="black" w="70%" fontSize="28px" fontWeight="bold">
-                  123456
+                  { code }
                 </Text>
                 <Box
                   border="1px solid #0F182C"
@@ -77,7 +102,9 @@ const InvitePage = () => {
                   h="30px"
                   textAlign="center"
                 >
-                  复制
+                  <CopyToClipboard text={code} onCopy={handleCopy}>
+                    <Text>复制</Text>
+                  </CopyToClipboard >
                 </Box>
               </HStack>
             </Box>
@@ -87,7 +114,7 @@ const InvitePage = () => {
               </Text>
               <HStack justifyContent="space-between" mt="5px">
                 <Text color="black" w="70%" fontSize="16px" fontWeight="bold">
-                  https://12779792470.32344.register.com
+                 {inviteSrc}
                 </Text>
                 <Box
                   border="1px solid #0F182C"
@@ -98,7 +125,9 @@ const InvitePage = () => {
                   h="30px"
                   textAlign="center"
                 >
-                  复制
+                  <CopyToClipboard text={inviteSrc} onCopy={handleCopy}>
+                    <Text>复制</Text>
+                  </CopyToClipboard >
                 </Box>
               </HStack>
             </Box>

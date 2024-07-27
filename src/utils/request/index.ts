@@ -1,8 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 
 // const baseURLMap = new Map() //不同baseUrl的映射
-
-export default class Ajax {
+class Ajax {
   constructor(baseUrl = '') {
     this.baseUrl = baseUrl
   }
@@ -81,3 +80,5 @@ export default class Ajax {
     })
   }
 }
+const baseUrl = 'http://api.gxsccw.com/api'
+export default new Ajax(baseUrl)

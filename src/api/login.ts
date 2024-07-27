@@ -3,9 +3,7 @@
  *  pont不支持v1的swagger,因此手写
  *
  */
-import Ajax from '@/utils/request'
-const baseUrl = 'http://api.gxsccw.com/api'
-const ajax = new Ajax(baseUrl)
+import ajax from '@/utils/request'
 
 // 注册
 export const userRegister = {

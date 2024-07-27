@@ -10,6 +10,7 @@ const BoxPage = () => {
   const handleBack = () => {
     router.back()
   }
+
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="white" minHeight="100vh">
       <Navbar title="多维宇宙" isFixed={true} leftContent={<ChevronLeft onClick={handleBack} />} />
@@ -54,6 +55,7 @@ const BoxPage = () => {
           pl="12px"
           borderRadius="xl"
           mt="10px"
+          onClick={() => router.push("/boxList")}
         >
           <Heading size="md" fontWeight="bold">
             开盒记录
@@ -84,6 +86,7 @@ const BoxPage = () => {
               borderRadius="3xl"
               h="40px"
               mt="20px"
+              onClick={() => router.push('/invite')}
             >
               邀请好友
             </Button>

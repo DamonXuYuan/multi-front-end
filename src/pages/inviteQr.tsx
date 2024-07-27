@@ -1,13 +1,15 @@
 import React from 'react'
-import { Box, VStack, Text, Image } from '@chakra-ui/react'
+import { Box, VStack, Text, Image, Center } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import { CircleX } from 'lucide-react'
 import inviteBg from '@/assets/imgs/inviteBg.png'
-import qrcodeBg from '@/assets/imgs/qrcodeBg.png'
 import dLogo from '@/assets/imgs/dLogo.png'
+import { QRCode } from "react-qrcode-logo";
+
 const InvitePage = () => {
   const router = useRouter()
+  const { inviteSrc = '' } = router.query
   const handleBack = () => {
     router.back()
   }
@@ -44,7 +46,9 @@ const InvitePage = () => {
           <Text textAlign="center" fontSize="18px" fontWeight="bold" mb="24px">
             猫提期待您的加入~
           </Text>
-          <Image src={qrcodeBg}></Image>
+          <Center>
+            <QRCode value={inviteSrc as string} />
+          </Center>
         </Box>
         <Image mt="30px" position="relative" zIndex={1} w="96px" height="80px" src={dLogo}></Image>
       </Box>

@@ -85,6 +85,7 @@ const InviteListPage = () => {
           w="100%"
           h="40px"
           mt="24px"
+          onClick={() => router.push('/invite')}
         >
           邀请好友
         </Button>
