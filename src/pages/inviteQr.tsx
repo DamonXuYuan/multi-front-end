@@ -5,7 +5,7 @@ import Navbar from '@/components/NavBar'
 import { CircleX } from 'lucide-react'
 import inviteBg from '@/assets/imgs/inviteBg.png'
 import dLogo from '@/assets/imgs/dLogo.png'
-import { QRCode } from "react-qrcode-logo";
+import { QRCode } from 'react-qrcode-logo'
 
 const InvitePage = () => {
   const router = useRouter()

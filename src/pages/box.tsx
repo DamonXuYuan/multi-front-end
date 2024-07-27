@@ -55,7 +55,7 @@ const BoxPage = () => {
           pl="12px"
           borderRadius="xl"
           mt="10px"
-          onClick={() => router.push("/boxList")}
+          onClick={() => router.push('/boxList')}
         >
           <Heading size="md" fontWeight="bold">
             开盒记录

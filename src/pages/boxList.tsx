@@ -17,28 +17,59 @@ const BoxListPage = () => {
   }
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#FAFAFA" minHeight="100vh">
-      <Navbar title={t("boxListPageTitle") as string} isFixed={true} leftContent={<ChevronLeft onClick={handleBack} />} />
-      <VStack
-        align="stretch"
-        spacing="12px"
-        px="12px"
-        pt="12px"
-        position="relative"
-        zIndex={1}
-      >
-        <Flex bg="#fff" p="12px" flexDirection="row" justifyContent="space-between" alignItems="center">
+      <Navbar
+        title={t('boxListPageTitle') as string}
+        isFixed={true}
+        leftContent={<ChevronLeft onClick={handleBack} />}
+      />
+      <VStack align="stretch" spacing="12px" px="12px" pt="12px" position="relative" zIndex={1}>
+        <Flex
+          bg="#fff"
+          p="12px"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <Box>
-            <Text fontSize="16px" color="#0F182C" mb="12px" fontWeight="bold">开启时间</Text>
-            <Text fontSize="12px" color="#C6CDD5">2024-06-01 12:23:02</Text>
+            <Text fontSize="16px" color="#0F182C" mb="12px" fontWeight="bold">
+              开启时间
+            </Text>
+            <Text fontSize="12px" color="#C6CDD5">
+              2024-06-01 12:23:02
+            </Text>
           </Box>
-          <Image src={MhBanner} alt="Blind Box" objectFit="cover" width="48px" height="48px" borderRadius="4px" />
+          <Image
+            src={MhBanner}
+            alt="Blind Box"
+            objectFit="cover"
+            width="48px"
+            height="48px"
+            borderRadius="4px"
+          />
         </Flex>
-        <Flex bg="#fff" p="12px" flexDirection="row" justifyContent="space-between" alignItems="center">
+        <Flex
+          bg="#fff"
+          p="12px"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <Box>
-            <Text fontSize="16px" color="#0F182C" mb="12px" fontWeight="bold">开启时间</Text>
-            <Text fontSize="12px" color="#C6CDD5">2024-06-01 12:23:02</Text>
+            <Text fontSize="16px" color="#0F182C" mb="12px" fontWeight="bold">
+              开启时间
+            </Text>
+            <Text fontSize="12px" color="#C6CDD5">
+              2024-06-01 12:23:02
+            </Text>
           </Box>
-          <Image src={MhBanner} alt="Blind Box" objectFit="cover" width="48px" height="48px" borderRadius="4px" />
+          <Image
+            src={MhBanner}
+            alt="Blind Box"
+            objectFit="cover"
+            width="48px"
+            height="48px"
+            borderRadius="4px"
+          />
         </Flex>
       </VStack>
     </Box>

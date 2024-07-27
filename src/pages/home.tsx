@@ -18,9 +18,16 @@ const HomePage = () => {
   }
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="gray.50" minHeight="100vh">
-      <Navbar title={t("title")} isFixed={true} />
+      <Navbar title={t('title')} isFixed={true} />
       <VStack align="stretch" px={4} mt={4}>
-        <Box bg="gray.800" borderRadius="lg" color="white" position="relative" overflow="hidden" onClick={goInvitePage}>
+        <Box
+          bg="gray.800"
+          borderRadius="lg"
+          color="white"
+          position="relative"
+          overflow="hidden"
+          onClick={goInvitePage}
+        >
           <Image src={MhBanner} alt="Blind Box" objectFit="contain" width="100%" height="175px" />
         </Box>
         <Flex align="center" bg="white" p={3} borderRadius="3xl" boxShadow="sm" mt={5} mb={8}>
