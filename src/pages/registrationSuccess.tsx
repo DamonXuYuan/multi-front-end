@@ -6,7 +6,7 @@ import cassetteNFT from '@/assets/imgs/cassetteNFT.png'
 import BaseButton from '@/components/BaseButton'
 import { useRouter } from 'next/router'
 
-function App() {
+function RegistrationSuccess() {
   const router = useRouter()
   const { t } = useTranslation(['home'])
 
@@ -41,4 +41,4 @@ export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
     props: { ...(await getI18nSSRProps(ctx, ['home'])) },
   }
 }
-export default App
+export default RegistrationSuccess

@@ -2,7 +2,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
-
 import { getI18nSSRProps, GetI18nStaticProps } from '@/utils/i18n'
 import theme from '@/theme'
 import '@/styles/global.scss'

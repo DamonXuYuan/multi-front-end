@@ -3,25 +3,36 @@ import { Text, Flex, Image } from '@chakra-ui/react'
 import back from '@/assets/imgs/back.png'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { getLocalStorage, setLocalStorage } from '@/utils/storage'
 
 function Index() {
-  const { t } = useTranslation(['home'])
-  const [title, setTitle] = useState('')
-  const [showBack, setShowBack] = useState(true)
+  const { t } = useTranslation(['home', 'raffle'])
   const router = useRouter()
+  const [showBack, setShowBack] = useState(false)
+  const [title, setTitle] = useState('Multi')
 
   useEffect(() => {
     const name = router?.pathname
     if (name === '/') {
-      setTitle(t('title'))
+      setLocalStorage('pageTitle', t('title'))
       setShowBack(false)
     } else if (name === '/registrations') {
-      setTitle(t('registrations'))
+      setLocalStorage('pageTitle', t('registrations'))
       setShowBack(true)
     } else if (name === '/registrationSuccess') {
-      setTitle(t('registrationHeader'))
+      setLocalStorage('pageTitle', t('registrationHeader'))
+      setShowBack(true)
+    } else if (name === '/raffle') {
+      setLocalStorage('pageTitle', t('raffle'))
+      setShowBack(false)
+    } else if (name === '/lottery') {
+      setLocalStorage('pageTitle', t('lottery'))
+      setShowBack(true)
+    } else if (name === '/participate') {
+      setLocalStorage('pageTitle', t('NumberOfParticipants'))
       setShowBack(true)
     }
+    setTitle(getLocalStorage('pageTitle') as string)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
 

@@ -1,5 +1,6 @@
 {
   "title": "首页",
+  "raffle": "抽签",
   "loginUserTitle": "欢迎来到Multi！",
   "loginUserName": "请输入用户名",
   "loginUserPWD": "请输入密码",
@@ -27,5 +28,7 @@
   "registrationSuccessTitle": "恭喜您，注册成功！",
   "registrationSuccessTips1": "作为Multi猫提平台的新用户，我们为您准备了",
   "registrationSuccessTips2": "NFT礼物！",
-  "registrationSuccessButton": "点击按钮，即刻领取神秘礼物！"
+  "registrationSuccessButton": "点击按钮，即刻领取神秘礼物！",
+  "lottery": "开奖",
+  "NumberOfParticipants": "参加人数"
 }

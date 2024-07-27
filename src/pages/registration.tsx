@@ -10,7 +10,7 @@ import { sendCode, userRegister } from '@/api/login'
 import { setLocalStorage } from '@/utils/storage'
 import { FailToast, SuccessToast } from '@/components/BaseToast'
 
-function App() {
+function Registration() {
   const { t } = useTranslation(['home'])
   const router = useRouter()
   const toast = useToast()
@@ -234,4 +234,4 @@ export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
     props: { ...(await getI18nSSRProps(ctx, ['home'])) },
   }
 }
-export default App
+export default Registration
