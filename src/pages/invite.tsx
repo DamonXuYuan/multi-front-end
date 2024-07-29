@@ -7,9 +7,9 @@ import inviteBg from '@/assets/imgs/inviteBg.png'
 import downloadIcon from '@/assets/imgs/download.png'
 import qrcodeBg from '@/assets/imgs/qrcodeBg.png'
 import { useTranslation } from 'next-i18next'
-import { CopyToClipboard } from "react-copy-to-clipboard"
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 const InvitePage = () => {
-  const [code , setCode] = useState('')
+  const [code, setCode] = useState('')
   const [inviteSrc, setInviteSrc] = useState('')
   const { t } = useTranslation(['home'])
   const toast = useToast()
@@ -20,22 +20,21 @@ const InvitePage = () => {
   const toQrcodePage = () => {
     router.push({
       pathname: '/inviteQr',
-      query: { inviteSrc }
-    });
+      query: { inviteSrc },
+    })
   }
   const handleCopy = () => {
     toast({
       title: t('copySuccess'),
       status: 'success',
       isClosable: true,
-      duration: 3000
+      duration: 3000,
     })
-  };
+  }
   useEffect(() => {
     setCode('133333')
     setInviteSrc('http://www.baidu.com')
-  }
-  , [])
+  }, [])
   return (
     <Box margin="auto" minHeight="100vh">
       <Navbar
@@ -91,7 +90,7 @@ const InvitePage = () => {
               </Text>
               <HStack justifyContent="space-between" mt="5px">
                 <Text color="black" w="70%" fontSize="28px" fontWeight="bold">
-                  { code }
+                  {code}
                 </Text>
                 <Box
                   border="1px solid #0F182C"
@@ -104,7 +103,7 @@ const InvitePage = () => {
                 >
                   <CopyToClipboard text={code} onCopy={handleCopy}>
                     <Text>复制</Text>
-                  </CopyToClipboard >
+                  </CopyToClipboard>
                 </Box>
               </HStack>
             </Box>
@@ -114,7 +113,7 @@ const InvitePage = () => {
               </Text>
               <HStack justifyContent="space-between" mt="5px">
                 <Text color="black" w="70%" fontSize="16px" fontWeight="bold">
-                 {inviteSrc}
+                  {inviteSrc}
                 </Text>
                 <Box
                   border="1px solid #0F182C"
@@ -127,7 +126,7 @@ const InvitePage = () => {
                 >
                   <CopyToClipboard text={inviteSrc} onCopy={handleCopy}>
                     <Text>复制</Text>
-                  </CopyToClipboard >
+                  </CopyToClipboard>
                 </Box>
               </HStack>
             </Box>
