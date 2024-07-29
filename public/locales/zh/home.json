@@ -1,5 +1,6 @@
 {
   "title": "首页",
+  "raffle": "抽签",
   "loginUserTitle": "欢迎来到Multi！",
   "loginUserName": "请输入用户名",
   "loginUserPWD": "请输入密码",
@@ -16,6 +17,7 @@
   "captcha": "请输入验证码",
   "captchaButton": "获取验证码",
   "invitationCode": "邀请码（如有）",
+  "sendCodeSuccess": "发送成功",
   "registrationTips1": "已有账号，",
   "registrationTips2": "立即登录",
   "registrationHeader": "注册成功",
@@ -27,6 +29,8 @@
   "registrationSuccessTips1": "作为Multi猫提平台的新用户，我们为您准备了",
   "registrationSuccessTips2": "NFT礼物！",
   "registrationSuccessButton": "点击按钮，即刻领取神秘礼物！",
+  "lottery": "开奖",
+  "NumberOfParticipants": "参加人数",
   "boxListPageTitle": "开盒记录",
   "userPageTitle": "用户中心",
   "BoxNFT": "盲盒NFT",

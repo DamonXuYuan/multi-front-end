@@ -6,11 +6,11 @@ import BaseInput from '@/components/BaseInput'
 import BaseButton from '@/components/BaseButton'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import { userRegister } from '@/api/login'
+import { sendCode, userRegister } from '@/api/login'
 import { setLocalStorage } from '@/utils/storage'
-import { FailToast } from '@/components/BaseToast'
+import { FailToast, SuccessToast } from '@/components/BaseToast'
 
-function App() {
+function Registration() {
   const { t } = useTranslation(['home'])
   const router = useRouter()
   const toast = useToast()
@@ -24,6 +24,7 @@ function App() {
   const [captchaErr, setCaptchaErr] = useState('')
   const [invitationCode, setinvitationCode] = useState('')
   const [registerClick, setRegister] = useBoolean(false)
+  const [sendEmailCode, setSendEmailCode] = useBoolean(false)
 
   const { data: userRegisterData, isLoading: registerLoading } = useSWR(
     userPassword && comfirmUserPassword && userEmail && captcha && registerClick
@@ -40,6 +41,15 @@ function App() {
     { revalidateOnFocus: false }
   )
 
+  const { data: sendCodeData } = useSWR(
+    userEmail && sendEmailCode ? [sendCode.key, sendEmailCode] : null,
+    () =>
+      userRegister.fetcher({
+        email: userEmail,
+      }),
+    { revalidateOnFocus: false }
+  )
+
   useEffect(() => {
     if (!userRegisterData) return
     if (userRegisterData?.code === 200) {
@@ -47,7 +57,6 @@ function App() {
       router.push('/registrationSuccess')
     } else {
       toast({
-        description: userRegisterData?.data?.message,
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -57,6 +66,27 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userRegisterData])
+
+  useEffect(() => {
+    if (!sendCodeData) return
+    if (sendCodeData?.code === 200) {
+      toast({
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+        render: () => <SuccessToast>{t('sendCodeSuccess') as string}</SuccessToast>,
+      })
+    } else {
+      toast({
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        render: () => <FailToast>{sendCodeData?.data?.message}</FailToast>,
+      })
+    }
+    setSendEmailCode.off()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sendCodeData])
 
   // 注册点击事件, 并二次检查
   const clickRegister = () => {
@@ -175,6 +205,7 @@ function App() {
               setCaptchaErr(t('registrationErrorCaptcha'))
             }
           }}
+          captchaClick={() => setSendEmailCode.on()}
         />
         <BaseInput
           placeholder={t('invitationCode')}
@@ -203,4 +234,4 @@ export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
     props: { ...(await getI18nSSRProps(ctx, ['home'])) },
   }
 }
-export default App
+export default Registration

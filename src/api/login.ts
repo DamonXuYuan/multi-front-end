@@ -16,3 +16,9 @@ export const userLogin = {
   fetcher: (params: Record<string, any>) => ajax.post('/login/passwordLogin', params),
   key: '/login/passwordLogin',
 }
+
+// 发送验证码
+export const sendCode = {
+  fetcher: (params: Record<string, any>) => ajax.post('/login/sendCode', params),
+  key: '/login/sendCode',
+}

@@ -1,0 +1,18 @@
+{
+  "title": "抽奖",
+  "NumberOfParticipants": "参加人数",
+  "clarification": "抽签活动说明",
+  "clarificationContent1": "1、点击【支付】参与抽签NFT活动",
+  "clarificationContent2": "2、倒计时结束进行中奖公布，用户可以获得奖金或者NFT！",
+  "clarificationContent3": "3、用户可以通过【邀请好友】注册，提升中奖概率",
+  "payButton": "支付参与",
+  "waitButton": "等待开奖(中奖概率",
+  "inviteFriends": "邀请好友，提升中奖概率",
+  "winButton": "恭喜您中奖",
+  "winTitle": "恭喜您获得奖励",
+  "viewRewards": "查看我的奖品",
+  "loseButton": "很遗憾，您未中奖",
+  "probability": "你的中奖概率：",
+  "probabilityDes": "为提升中奖概率，去",
+  "inviteFriendText": "邀请好友"
+}
