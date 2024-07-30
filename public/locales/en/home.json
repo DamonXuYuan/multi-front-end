@@ -34,5 +34,17 @@
   "boxListPageTitle": "开盒记录",
   "userPageTitle": "用户中心",
   "BoxNFT": "盲盒NFT",
-  "copySuccess": "复制成功"
+  "copySuccess": "复制成功",
+  "inviteListTitle": "邀请好友",
+  "inviteListTips": "赢取NFT奖励",
+  "myInvitations": "我的邀请({{ count }})人",
+  "inviteFriend": "邀请好友",
+  "inviteFriendTips": "加速领取NFT解锁更多好礼",
+  "inviteCodeText": "邀请码",
+  "inviteQRCode": "邀请二维码",
+  "inviteLink": "邀请链接",
+  "copyText": "复制",
+  "inviteQrTips1" : "在猫提免费赚取NFT！",
+  "inviteQrTips2" : "加入猫提领取神秘礼物，最高0.018BTc等您来拿！",
+  "inviteQrTips3":"猫提期待您的加入~"
 }

@@ -6,8 +6,10 @@ import { CircleX } from 'lucide-react'
 import inviteBg from '@/assets/imgs/inviteBg.png'
 import dLogo from '@/assets/imgs/dLogo.png'
 import { QRCode } from 'react-qrcode-logo'
-
+import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
+import { useTranslation } from 'next-i18next'
 const InvitePage = () => {
+  const { t } = useTranslation(['home'])
   const router = useRouter()
   const { inviteSrc = '' } = router.query
   const handleBack = () => {
@@ -31,8 +33,8 @@ const InvitePage = () => {
       />
       <Box px="30" display="flex" flexDirection="column" alignItems="center">
         <VStack position="relative" zIndex={1} color="white" fontWeight="bold" mt="22px">
-          <Text fontSize="30px">在猫提免费赚取NFT！</Text>
-          <Text fontSize="16px">加入猫提领取神秘礼物，最高0.018BTc等您来拿！</Text>
+          <Text fontSize="30px">{t('inviteQrTips1')}</Text>
+          <Text fontSize="16px">{t('inviteQrTips2')}</Text>
         </VStack>
         <Box
           position="relative"
@@ -44,7 +46,7 @@ const InvitePage = () => {
           p="30px"
         >
           <Text textAlign="center" fontSize="18px" fontWeight="bold" mb="24px">
-            猫提期待您的加入~
+            {t('inviteQrTips3')}
           </Text>
           <Center>
             <QRCode value={inviteSrc as string} />
@@ -55,5 +57,9 @@ const InvitePage = () => {
     </Box>
   )
 }
-
+export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
+  return {
+    props: { ...(await getI18nSSRProps(ctx, ['home'])) },
+  }
+}
 export default InvitePage

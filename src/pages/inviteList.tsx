@@ -1,26 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, VStack, Text, Image, HStack, Button, Stack, Heading } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
+import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
+import { useTranslation } from 'next-i18next'
 import inviteBg from '@/assets/imgs/inviteBg.png'
 import share from '@/assets/imgs/share.png'
+import useSWR from 'swr'
+import { inviterelate } from '@/api/user'
+interface InviteItem {
+  id: number
+  title: string
+}
 const InviteListPage = () => {
+  const { t } = useTranslation(['home'])
+  const [inviteList, setInviteList] = useState<InviteItem[]>([])
+  const [inviteCode, setInviteCode] = useState('')
+  const [inviteSrc, setInviteSrc] = useState('')
   const router = useRouter()
   const handleBack = () => {
     router.back()
   }
-  const handleInvite = () => {
-    console.log('invite')
-  }
+  const { data: inviteData } = useSWR(
+    inviterelate.key,
+    () => inviterelate.fetcher(),
+    { revalidateOnFocus: false }
+  )
+  useEffect(() => {
+    if (inviteData && inviteData.code === 200) {
+      setInviteList(inviteData.data?.my_invited_users || [])
+      setInviteCode(inviteData.data?.user_code || '')
+      setInviteSrc(inviteData.data?.invited_link || '')
+    }
+  }, [inviteData])
   return (
     <Box margin="auto" minHeight="100vh">
       <Navbar
-        title="邀请好友"
+        title={t('inviteListTitle') as string}
         titleColor="white"
         bg="transparent"
         leftContent={<ChevronLeft onClick={handleBack} color="white" />}
-        rightContent={<Image src={share} w="24px" h="24px" />}
+        rightContent={
+          <Image
+            src={share}
+            w="24px"
+            h="24px"
+            onClick={() =>
+              router.push({
+                pathname: '/inviteQr',
+                query: { inviteSrc },
+              })
+            }
+          />
+        }
       />
       <Image
         position="absolute"
@@ -33,8 +66,8 @@ const InviteListPage = () => {
       />
       <Box px="30" display="flex" flexDirection="column" alignItems="center">
         <VStack position="relative" zIndex={1} color="white" fontWeight="bold" mt="22px">
-          <Text fontSize="28px">邀请好友</Text>
-          <Text fontSize="28px">赢取NFT奖励</Text>
+          <Text fontSize="28px">{t('inviteListTitle')}</Text>
+          <Text fontSize="28px">{t('inviteListTips')}</Text>
         </VStack>
         <Box
           position="relative"
@@ -48,34 +81,24 @@ const InviteListPage = () => {
         >
           <HStack justifyContent="space-between">
             <Text fontSize="16px" fontWeight="bold">
-              我的邀请（24人）
+              {t('myInvitations', { count: inviteList.length })}
             </Text>
-            <ChevronRight onClick={handleInvite} />
           </HStack>
-          <Stack spacing="20px" mt="10px">
-            <HStack>
-              <Image borderRadius="40px" w="40px" h="40px" src={inviteBg} />
-              <Box>
-                <Heading size="xs" textTransform="uppercase">
-                  Summary
-                </Heading>
-                <Text pt="2" fontSize="sm" color="gray.500">
-                  View a summary of all your clients over the last month.
-                </Text>
-              </Box>
-            </HStack>
-            <HStack>
-              <Image borderRadius="40px" w="40px" h="40px" src={inviteBg} />
-              <Box>
-                <Heading size="xs" textTransform="uppercase">
-                  Summary
-                </Heading>
-                <Text pt="2" fontSize="sm" color="gray.500">
-                  View a summary of all your clients over the last month.
-                </Text>
-              </Box>
-            </HStack>
-          </Stack>
+          {inviteList.map((item: any) => (
+            <Stack spacing="20px" mt="10px" key={item.id}>
+              <HStack>
+                <Image borderRadius="40px" w="40px" h="40px" src={inviteBg} />
+                <Box>
+                  <Heading size="xs" textTransform="uppercase">
+                    {item.email}
+                  </Heading>
+                  <Text pt="2" fontSize="sm" color="gray.500">
+                    {item.time}
+                  </Text>
+                </Box>
+              </HStack>
+            </Stack>
+          ))}
         </Box>
         <Button
           colorScheme="#51CEAA"
@@ -85,13 +108,22 @@ const InviteListPage = () => {
           w="100%"
           h="40px"
           mt="24px"
-          onClick={() => router.push('/invite')}
+          onClick={() =>
+            router.push({
+              pathname: '/invite',
+              query: { inviteCode, inviteSrc },
+            })
+          }
         >
-          邀请好友
+          {t('inviteFriend')}
         </Button>
       </Box>
     </Box>
   )
 }
-
+export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
+  return {
+    props: { ...(await getI18nSSRProps(ctx, ['home'])) },
+  }
+}
 export default InviteListPage

@@ -1,6 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import Router from 'next/router'
+import { getLocalStorage, removeLocalStorage } from '@/utils/storage'
 
 // const baseURLMap = new Map() //不同baseUrl的映射
+
 class Ajax {
   constructor(baseUrl = '') {
     this.baseUrl = baseUrl
@@ -28,13 +31,19 @@ class Ajax {
       ...params,
       // TODO:其他默认的值
     }
+
     return new Promise((resolve) => {
       axios({ ...newParams, url: `${this.baseUrl}${params.url}` })
         .then((res: AxiosResponse) => {
+          console.log('res', res)
           if (res.status === 200) {
             switch (res?.data?.code) {
               case 0:
                 resolve(res?.data)
+                break
+              case 1001:
+                Router.push('/login')
+                removeLocalStorage('userInfo')
                 break
               case 401:
                 // TODO:鉴权
@@ -80,5 +89,15 @@ class Ajax {
     })
   }
 }
-const baseUrl = 'http://api.gxsccw.com/api'
+let baseUrl
+if (process.env.NODE_ENV === 'development') {
+  baseUrl = 'http://api.gxsccw.com/api'
+} else if (process.env.NODE_ENV === 'production') {
+  baseUrl = '/'
+}
+if (typeof window !== 'undefined') {
+  const userInfo = getLocalStorage('userInfo')
+  const token = userInfo ? JSON.parse(userInfo).token : ''
+  Ajax.setHeader('token', token)
+}
 export default new Ajax(baseUrl)

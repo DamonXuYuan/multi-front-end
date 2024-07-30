@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, VStack, Heading, Text, Button, Image, HStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import useSWR from 'swr'
+import { boxInfo } from '@/api/box'
 import MhBanner from '@/assets/imgs/mhBanner.png'
 import tealBg from '@/assets/imgs/tealBg.png'
 const BoxPage = () => {
@@ -10,7 +12,17 @@ const BoxPage = () => {
   const handleBack = () => {
     router.back()
   }
-
+  const { id } = router.query
+  const { data: boxData } = useSWR(
+    id ? boxInfo.key : null,
+    () => boxInfo.fetcher({ id }),
+    { revalidateOnFocus: false }
+  )
+  useEffect(() => {
+    if (boxData && boxData.code === 200) {
+      console.log(boxData)
+    }
+  }, [boxData])
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="white" minHeight="100vh">
       <Navbar title="多维宇宙" isFixed={true} leftContent={<ChevronLeft onClick={handleBack} />} />
@@ -86,7 +98,7 @@ const BoxPage = () => {
               borderRadius="3xl"
               h="40px"
               mt="20px"
-              onClick={() => router.push('/invite')}
+              onClick={() => router.push('/inviteList')}
             >
               邀请好友
             </Button>

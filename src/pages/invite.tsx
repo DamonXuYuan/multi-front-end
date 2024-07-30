@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Box, VStack, Text, Image, HStack, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
@@ -9,11 +9,10 @@ import qrcodeBg from '@/assets/imgs/qrcodeBg.png'
 import { useTranslation } from 'next-i18next'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 const InvitePage = () => {
-  const [code, setCode] = useState('')
-  const [inviteSrc, setInviteSrc] = useState('')
   const { t } = useTranslation(['home'])
   const toast = useToast()
   const router = useRouter()
+  const { inviteCode, inviteSrc } = router.query
   const handleBack = () => {
     router.back()
   }
@@ -31,10 +30,6 @@ const InvitePage = () => {
       duration: 3000,
     })
   }
-  useEffect(() => {
-    setCode('133333')
-    setInviteSrc('http://www.baidu.com')
-  }, [])
   return (
     <Box margin="auto" minHeight="100vh">
       <Navbar
@@ -61,8 +56,8 @@ const InvitePage = () => {
           fontWeight="bold"
           mt="22px"
         >
-          <Text>邀请好友</Text>
-          <Text>加速领取NFT解锁更多好礼</Text>
+          <Text>{t('inviteFriend')}</Text>
+          <Text>{t('inviteFriendTips')}</Text>
         </VStack>
         <Box
           borderRadius="3xl"
@@ -86,11 +81,11 @@ const InvitePage = () => {
           >
             <Box>
               <Text fontSize="sm" color="gray.400">
-                邀请码
+                {t('inviteCode')}
               </Text>
               <HStack justifyContent="space-between" mt="5px">
                 <Text color="black" w="70%" fontSize="28px" fontWeight="bold">
-                  {code}
+                  {inviteCode}
                 </Text>
                 <Box
                   border="1px solid #0F182C"
@@ -101,15 +96,15 @@ const InvitePage = () => {
                   h="30px"
                   textAlign="center"
                 >
-                  <CopyToClipboard text={code} onCopy={handleCopy}>
-                    <Text>复制</Text>
+                  <CopyToClipboard text={inviteCode as string} onCopy={handleCopy}>
+                    <Text>{t('copyText')}</Text>
                   </CopyToClipboard>
                 </Box>
               </HStack>
             </Box>
             <Box>
               <Text fontSize="sm" color="gray.400">
-                邀请连接
+                {t('inviteLink')}
               </Text>
               <HStack justifyContent="space-between" mt="5px">
                 <Text color="black" w="70%" fontSize="16px" fontWeight="bold">
@@ -124,8 +119,8 @@ const InvitePage = () => {
                   h="30px"
                   textAlign="center"
                 >
-                  <CopyToClipboard text={inviteSrc} onCopy={handleCopy}>
-                    <Text>复制</Text>
+                  <CopyToClipboard text={inviteSrc as string} onCopy={handleCopy}>
+                    <Text>{t('copyText')}</Text>
                   </CopyToClipboard>
                 </Box>
               </HStack>
