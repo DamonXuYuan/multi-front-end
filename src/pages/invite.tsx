@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Box, VStack, Text, Image, HStack, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
