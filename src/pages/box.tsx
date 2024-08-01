@@ -13,11 +13,9 @@ const BoxPage = () => {
     router.back()
   }
   const { id } = router.query
-  const { data: boxData } = useSWR(
-    id ? boxInfo.key : null,
-    () => boxInfo.fetcher({ id }),
-    { revalidateOnFocus: false }
-  )
+  const { data: boxData } = useSWR(id ? boxInfo.key : null, () => boxInfo.fetcher({ id }), {
+    revalidateOnFocus: false,
+  })
   useEffect(() => {
     if (boxData && boxData.code === 200) {
       console.log(boxData)

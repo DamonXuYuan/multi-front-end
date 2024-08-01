@@ -35,11 +35,9 @@ const HomePage = () => {
   const goInvitePage = () => {
     router.push('/inviteList')
   }
-  const { data: afficheData } = useSWR(
-    afficheGetNew.key,
-    () => afficheGetNew.fetcher(),
-    { revalidateOnFocus: false }
-  )
+  const { data: afficheData } = useSWR(afficheGetNew.key, () => afficheGetNew.fetcher(), {
+    revalidateOnFocus: false,
+  })
   const { data: boxData } = useSWR(boxGetList.key, () => boxGetList.fetcher(), {
     revalidateOnFocus: false,
   })
