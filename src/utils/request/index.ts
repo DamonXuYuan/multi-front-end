@@ -35,7 +35,6 @@ class Ajax {
     return new Promise((resolve) => {
       axios({ ...newParams, url: `${this.baseUrl}${params.url}` })
         .then((res: AxiosResponse) => {
-          console.log('res', res)
           if (res.status === 200) {
             switch (res?.data?.code) {
               case 0:

@@ -10,6 +10,7 @@ import useSWR from 'swr'
 import { userLogin } from '@/api/login'
 import { setLocalStorage } from '@/utils/storage'
 import { FailToast } from '@/components/BaseToast'
+import { useConnect } from '@particle-network/auth-core-modal'
 
 function Login() {
   const router = useRouter()
@@ -18,6 +19,8 @@ function Login() {
   const [userName, setUserName] = useState('')
   const [userPassword, setUserPassword] = useState('')
   const [loginClick, setLoginClick] = useBoolean(false)
+
+  const { connect, disconnect, connected } = useConnect()
 
   const { data: userLoginData, isLoading: userLoginLoading } = useSWR(
     userPassword && userPassword && loginClick ? [userLogin.key, loginClick] : null,
@@ -47,26 +50,33 @@ function Login() {
   }, [userLoginData])
 
   // 点击登录，并检查是否为空
-  const login = () => {
-    if (userName === '') {
-      toast({
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-        render: () => <FailToast>{t('loginUserNameErr') as string}</FailToast>,
-      })
-      return
+  const login = async () => {
+    console.log(connected, 213)
+    if (!connected) {
+      const userInfo = await connect()
+      console.log(userInfo)
+    } else {
+      disconnect()
     }
-    if (userPassword === '') {
-      toast({
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-        render: () => <FailToast>{t('loginUserPassWordErr') as string}</FailToast>,
-      })
-      return
-    }
-    setLoginClick.on()
+    // if (userName === '') {
+    //   toast({
+    //     status: 'error',
+    //     duration: 3000,
+    //     isClosable: true,
+    //     render: () => <FailToast>{t('loginUserNameErr') as string}</FailToast>,
+    //   })
+    //   return
+    // }
+    // if (userPassword === '') {
+    //   toast({
+    //     status: 'error',
+    //     duration: 3000,
+    //     isClosable: true,
+    //     render: () => <FailToast>{t('loginUserPassWordErr') as string}</FailToast>,
+    //   })
+    //   return
+    // }
+    // setLoginClick.on()
   }
 
   return (
