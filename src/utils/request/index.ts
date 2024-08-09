@@ -15,6 +15,9 @@ class Ajax {
     }
     axios.interceptors.request.use(
       (config: any) => {
+        // config.headers['Access-Control-Allow-Origin'] = '*'
+        // config.headers['Access-Control-Allow-Methods'] = '*'
+        // config.headers['Access-Control-Allow-Headers'] = '*'
         config.headers[headerName] = value
         return config
       },
@@ -91,7 +94,7 @@ class Ajax {
 }
 let baseUrl
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://api.gxsccw.com/api'
+  baseUrl = 'http://api.gxsccw.com'
 } else if (process.env.NODE_ENV === 'production') {
   baseUrl = '/'
 }

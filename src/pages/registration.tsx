@@ -44,8 +44,9 @@ function Registration() {
   const { data: sendCodeData } = useSWR(
     userEmail && sendEmailCode ? [sendCode.key, sendEmailCode] : null,
     () =>
-      userRegister.fetcher({
+      sendCode.fetcher({
         email: userEmail,
+        type: 1,
       }),
     { revalidateOnFocus: false }
   )
@@ -205,7 +206,10 @@ function Registration() {
               setCaptchaErr(t('registrationErrorCaptcha'))
             }
           }}
-          captchaClick={() => setSendEmailCode.on()}
+          captchaClick={() => {
+            console.log(123)
+            setSendEmailCode.on()
+          }}
         />
         <BaseInput
           placeholder={t('invitationCode')}

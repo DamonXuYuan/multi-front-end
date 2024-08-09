@@ -1,6 +1,6 @@
 import ajax from '@/utils/request'
 
 export const inviterelate = {
-  fetcher: () => ajax.get('/user/inviterelate'),
+  fetcher: () => ajax.get('/api/user/inviterelate'),
   key: '/user/inviterelate',
 }
