@@ -54,7 +54,7 @@ function Registration() {
   useEffect(() => {
     if (!userRegisterData) return
     if (userRegisterData?.code === 200) {
-      setLocalStorage('userInfo', JSON.stringify(userRegisterData?.data))
+      setLocalStorage('userToken', JSON.stringify(userRegisterData?.data))
       router.push('/registrationSuccess')
     } else {
       toast({

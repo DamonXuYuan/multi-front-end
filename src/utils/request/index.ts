@@ -99,8 +99,8 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = '/'
 }
 if (typeof window !== 'undefined') {
-  const userInfo = getLocalStorage('userInfo')
-  const token = userInfo ? JSON.parse(userInfo).token : ''
+  const userToken = getLocalStorage('userToken')
+  const token = userToken ? JSON.parse(userToken) : ''
   Ajax.setHeader('token', token)
 }
 export default new Ajax(baseUrl)
