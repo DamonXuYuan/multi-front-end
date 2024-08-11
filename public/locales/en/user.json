@@ -1,0 +1,14 @@
+{
+  "title": "用户中心",
+  "user": "用户",
+  "openTime": "开启时间",
+  "blindBox": "盲盒",
+  "myCollections": "我的收藏",
+  "myWallet": "我的钱包",
+  "systemLanguage": "系统语言",
+  "accountAndSecurity": "账户与安全",
+  "aboutUs": "关于我们",
+  "logout": "退出登录",
+  "changeEmail": "更改邮箱",
+  "changePassword": "更改密码"
+}

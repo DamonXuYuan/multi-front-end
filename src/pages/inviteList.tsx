@@ -22,11 +22,9 @@ const InviteListPage = () => {
   const handleBack = () => {
     router.back()
   }
-  const { data: inviteData } = useSWR(
-    inviterelate.key,
-    () => inviterelate.fetcher(),
-    { revalidateOnFocus: false }
-  )
+  const { data: inviteData } = useSWR(inviterelate.key, () => inviterelate.fetcher(), {
+    revalidateOnFocus: false,
+  })
   useEffect(() => {
     if (inviteData && inviteData.code === 200) {
       setInviteList(inviteData.data?.my_invited_users || [])

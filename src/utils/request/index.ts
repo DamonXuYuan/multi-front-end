@@ -91,7 +91,7 @@ class Ajax {
 }
 let baseUrl
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://api.gxsccw.com/api'
+  baseUrl = '/api'
 } else if (process.env.NODE_ENV === 'production') {
   baseUrl = '/'
 }
