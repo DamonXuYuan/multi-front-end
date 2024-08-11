@@ -5,7 +5,7 @@ export const boxInfo = {
   key: '/box/getMyInfo',
 }
 export const boxGetList = {
-  fetcher: () => ajax.get('/box/getList'),
+  fetcher: () => ajax.get('/api/box/getList'),
   key: '/box/getList',
 }
 export const boxGetMyList = {
