@@ -32,7 +32,7 @@ function Login() {
   useEffect(() => {
     if (!userLoginData) return
     if (userLoginData?.code === 200) {
-      setLocalStorage('userInfo', JSON.stringify(userLoginData?.data))
+      setLocalStorage('userToken', JSON.stringify(userLoginData?.data))
       router.push('/')
     } else {
       toast({

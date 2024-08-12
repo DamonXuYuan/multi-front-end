@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, VStack, Flex, Text, Image, HStack } from '@chakra-ui/react'
+import { Box, VStack, Flex, Text, Image, HStack, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import { ChevronLeft } from 'lucide-react'
@@ -15,9 +15,10 @@ import lgue from '@/assets/imgs/lgue.png'
 import safe from '@/assets/imgs/safe.png'
 import about from '@/assets/imgs/about.png'
 import setting from '@/assets/imgs/setting.png'
-import {getLocalStorageObj} from '@/utils/storage'
+import {getLocalStorageObj, removeLocalStorage} from '@/utils/storage'
 const BoxListPage = () => {
-  const { t } = useTranslation(['user'])
+  const { t } = useTranslation(['user', 'common'])
+  const toast = useToast()
   const router = useRouter()
   const [userInfo, setUserInfo] = React.useState<any>({})
   const openAllNFTPage = () => {
@@ -26,9 +27,19 @@ const BoxListPage = () => {
   const handleBack = () => {
     router.back()
   }
+  const handleNoAction = () => {
+    toast({
+      title: t('featureInDevelopment'),
+      status: 'info',
+      isClosable: true,
+      duration: 3000,
+    })
+    return;
+  }
   const handleLogout = () => {
-    // removeLocalStorage('userInfo')
-    // router.push('/login')
+    removeLocalStorage('userInfo')
+    removeLocalStorage('userToken')
+    router.replace('/login')
   }
   useEffect(() => {
     const data = getLocalStorageObj('userInfo')
@@ -94,7 +105,7 @@ const BoxListPage = () => {
               {t('myCollections')}
             </Text>
           </HStack>
-          <HStack flex="1">
+          <HStack flex="1" onClick={handleNoAction}>
             <Image
               src={wbag}
               alt={t('blindBox')}
@@ -114,6 +125,7 @@ const BoxListPage = () => {
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center"
+          onClick={handleNoAction}
         >
           <HStack>
             <Image
@@ -125,7 +137,7 @@ const BoxListPage = () => {
               borderRadius="4px"
             />
             <Text fontSize="14px" color="#0F182C">
-              {t('openTime')}
+              {t('myOrder')}
             </Text>
           </HStack>
           <Image
@@ -144,8 +156,9 @@ const BoxListPage = () => {
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
+            onClick={() => { router.push('/systemLanguage') }}
           >
-            <HStack onClick={() => { router.push('/systemLanguage') }}>
+            <HStack>
               <Image
                 src={lgue}
                 alt={t('blindBox')}
@@ -203,8 +216,9 @@ const BoxListPage = () => {
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
+            onClick={() => { router.push('/about') }}
           >
-            <HStack onClick={() => { router.push('/about') }}>
+            <HStack>
               <Image
                 src={about}
                 alt={t('blindBox')}
@@ -233,8 +247,9 @@ const BoxListPage = () => {
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center"
+          onClick={handleLogout}
         >
-          <HStack onClick={handleLogout}>
+          <HStack>
             <Image
               src={logout}
               alt={t('blindBox')}

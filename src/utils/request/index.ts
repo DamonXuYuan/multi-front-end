@@ -3,7 +3,6 @@ import Router from 'next/router'
 import { getLocalStorage, removeLocalStorage } from '@/utils/storage'
 
 // const baseURLMap = new Map() //不同baseUrl的映射
-
 class Ajax {
   constructor(baseUrl = '') {
     this.baseUrl = baseUrl
@@ -96,8 +95,17 @@ if (process.env.NODE_ENV === 'development') {
   baseUrl = '/'
 }
 if (typeof window !== 'undefined') {
+  console.log('window', window)
   const userInfo = getLocalStorage('userInfo')
   const token = userInfo ? JSON.parse(userInfo).token : ''
-  Ajax.setHeader('token', token)
+  if(token) {
+    Ajax.setHeader('token', token)
+  } else {
+    // const { route} = Router
+    // if (route !== '/login') {
+    //   Router.push('/login')
+    // }
+  }
 }
 export default new Ajax(baseUrl)
+

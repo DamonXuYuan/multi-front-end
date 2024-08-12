@@ -46,5 +46,10 @@
   "copyText": "复制",
   "inviteQrTips1" : "在猫提免费赚取NFT！",
   "inviteQrTips2" : "加入猫提领取神秘礼物，最高0.018BTc等您来拿！",
-  "inviteQrTips3":"猫提期待您的加入~"
+  "inviteQrTips3":"猫提期待您的加入~",
+  "InviteRulesText": "邀请规则",
+  "navHomePage": "首页",
+  "navDraw": "抽签",
+  "navStake": "质押",
+  "navMine": "我的"
 }

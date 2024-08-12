@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, VStack, Icon, Text, Box } from '@chakra-ui/react'
+import { Flex, VStack, Icon, Text, Box, useToast } from '@chakra-ui/react'
 import { Home, LockIcon, User, Shuffle } from 'lucide-react'
 import { useRouter } from 'next/router'
 
@@ -45,6 +45,7 @@ const BottomNavbar = ({ items, onItemClick }: BottomNavbarProps) => {
 }
 
 const TabBar: React.FC = () => {
+  const toast  = useToast()
   const [activeIndex, setActiveIndex] = React.useState(0)
   const router = useRouter()
   const navItems: NavItem[] = [
@@ -56,6 +57,15 @@ const TabBar: React.FC = () => {
 
   const handleItemClick = (item: NavItem, index: number) => {
     setActiveIndex(index)
+    if(item.url === '') {
+      toast({
+        title: '功能开发中',
+        status: 'info',
+        duration: 3000,
+        isClosable: true,
+      })
+      return
+    }
     if (item.url.startsWith('http://') || item.url.startsWith('https://')) {
       window.open(item.url, '_blank')
     } else {

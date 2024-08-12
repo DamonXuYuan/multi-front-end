@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, VStack, Text, Image, Flex, Center, Spinner } from '@chakra-ui/react'
+import { Box, VStack, Text, Image, Flex, Center, Spinner, Modal, ModalBody, ModalContent, ModalOverlay, ModalCloseButton, ModalHeader } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import TabBar from '@/components/TabBar'
@@ -8,9 +8,9 @@ import notice from '@/assets/imgs/notice.png'
 import useSWR from 'swr'
 import { boxGetList } from '@/api/box'
 import { afficheGetNew } from '@/api/affiche'
-
 import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import { useTranslation } from 'next-i18next'
+import DOMPurify from "dompurify";
 interface Cover {
   show_src: string
   height: number
@@ -24,6 +24,8 @@ interface BoxItem {
 const HomePage = () => {
   const [afficheTitle, setAfficheTitle] = useState('')
   const [boxList, setBoxList] = useState<BoxItem[]>([])
+  const [content, setContent] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const { t } = useTranslation(['home'])
   const goBoxPage = (id: number) => {
@@ -35,6 +37,10 @@ const HomePage = () => {
   const goInvitePage = () => {
     router.push('/inviteList')
   }
+  const handleNotice = () => {
+    setIsOpen(true)
+  }
+  const onClose = () => setIsOpen(false)
   const { data: afficheData } = useSWR(afficheGetNew.key, () => afficheGetNew.fetcher(), {
     revalidateOnFocus: false,
   })
@@ -44,12 +50,12 @@ const HomePage = () => {
   useEffect(() => {
     if (afficheData && afficheData.code === 200) {
       setAfficheTitle(afficheData.data.title)
+      setContent(DOMPurify.sanitize(afficheData.data.content))
     }
     if (boxData && boxData.code === 200) {
       setBoxList(boxData.data?.list || [])
     }
   }, [afficheData, boxData])
-  if (!afficheData || !boxData) return
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="gray.50" minHeight="100vh">
       <Navbar title={t('title')} isFixed={true} />
@@ -69,7 +75,7 @@ const HomePage = () => {
           >
             <Image src={MhBanner} alt="Blind Box" objectFit="contain" width="100%" height="175px" />
           </Box>
-          <Flex align="center" bg="white" p={3} borderRadius="3xl" boxShadow="sm" mt={5} mb={8}>
+          <Flex align="center" bg="white" p={3} borderRadius="3xl" boxShadow="sm" mt={5} mb={8} onClick={handleNotice}>
             <Image src={notice} w="20px" h="20px" mr="5px"></Image>
             <Text color="gray.500">{afficheTitle}</Text>
           </Flex>
@@ -104,6 +110,22 @@ const HomePage = () => {
         </VStack>
       )}
       <TabBar />
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent bg="#fff">
+          <ModalHeader textAlign='center'>{ afficheTitle }</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box
+              maxHeight="70vh"
+              overflowY="auto"
+              padding="4"
+              borderRadius="md"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   )
 }

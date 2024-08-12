@@ -36,7 +36,7 @@ const BoxPage = () => {
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="white" minHeight="100vh">
       <Navbar title={t('title')} isFixed={true} leftContent={<ChevronLeft onClick={handleBack} />} />
-      <Image src={MhBanner} alt="box" h="257px" />
+      <Image src={MhBanner} alt="box" h="257px" onClick={() => router.push('/inviteList')}/>
       <VStack
         align="stretch"
         spacing="12px"

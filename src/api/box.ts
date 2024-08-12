@@ -1,12 +1,12 @@
 import ajax from '@/utils/request'
 
 export const boxInfo = {
-  fetcher: (params: Record<string, any>) => ajax.get('/box/getMyInfo', params),
+  fetcher: (params: Record<string, any>) => ajax.get('/api/box/getMyInfo', params),
   key: '/box/getMyInfo',
 }
 export const inviteinfo = {
-  fetcher: (params: Record<string, any>) => ajax.get('/box/inviteinfo', params),
-  key: '/box/inviteinfo',
+  fetcher: (params: Record<string, any>) => ajax.get('/api/box/inviteinfo', params),
+  key: '/api/box/inviteinfo',
 }
 export const boxGetList = {
   fetcher: () => ajax.get('/api/box/getList'),

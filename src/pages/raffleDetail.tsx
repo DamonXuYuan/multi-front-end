@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import BaseButton from '@/components/BaseButton'
@@ -6,12 +6,14 @@ import { useTranslation } from 'next-i18next'
 import raffleImg from '@/assets/imgs/raffleImg.jpg'
 import rightIcon from '@/assets/imgs/rightIcon.png'
 import { useRouter } from 'next/router'
+import useSWR from 'swr'
+import { getRaffleDetail } from '@/api/raffle'
 
 function Raffle() {
   const { t } = useTranslation(['raffle'])
   const router = useRouter()
-  const [type] = useState(3) // 1：未参加；2：等待开奖；3：中奖；4：未中奖
-
+  const id = router?.query?.id
+  const [type] = useState(2) // 1：未参加；2：等待开奖；3：中奖；4：未中奖
   const card = {
     img: raffleImg,
     name: '小星球NFT',
@@ -21,6 +23,18 @@ function Raffle() {
     time: '20:00',
     type: '进行中',
   }
+  const { data: getRaffleDetailData } = useSWR(
+    id ? [getRaffleDetail.key, id] : null,
+    () =>
+      getRaffleDetail.fetcher({
+        id: id,
+      }),
+    { revalidateOnFocus: false }
+  )
+
+  useEffect(() => {
+    console.log(getRaffleDetailData, 99999)
+  }, [getRaffleDetailData])
 
   const Type1 = () => (
     <Flex

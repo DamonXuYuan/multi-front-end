@@ -3,6 +3,7 @@ import { Flex, Image, Text, FlexProps } from '@chakra-ui/react'
 import tagBg from '@/assets/imgs/tagBg.png'
 
 export interface RaffleCardProps {
+  id: string | number
   img: string
   name: string
   range: string
