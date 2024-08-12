@@ -28,8 +28,8 @@ const IndexPage = () => {
   const handleGetVerificationCode = async () => {
     if (!validateEmail(email)) {
       toast({
-        title: '无效的邮箱地址',
-        description: '请输入有效的邮箱地址。',
+        title: t('invalidEmailAddress'),
+        description: t('enterValidEmailAddress'),
         status: 'warning',
         duration: 3000,
         isClosable: true,
@@ -39,7 +39,7 @@ const IndexPage = () => {
     const res = await sendEmailCode.fetcher({ email, type: 2 })
     if (res.code !== 200) {
       toast({
-        title: '验证码发送失败',
+        title: t('verificationCodeSendFailed'),
         description: res.msg,
         status: 'error',
         duration: 3000,
@@ -59,8 +59,8 @@ const IndexPage = () => {
       })
     }, 1000)
     toast({
-      title: '验证码已发送',
-      description: '请检查您的邮箱获取验证码。',
+      title: t('verificationCodeSent'),
+      description: t('checkYourEmailForCode'),
       status: 'success',
       duration: 3000,
       isClosable: true,
@@ -69,8 +69,8 @@ const IndexPage = () => {
   const handleSubmit = async () => {
     if (!validateEmail(email)) {
       toast({
-        title: '无效的邮箱地址',
-        description: '请输入有效的邮箱地址。',
+        title: t('invalidEmailAddress'),
+        description: t('enterValidEmailAddress'),
         status: 'warning',
         duration: 3000,
         isClosable: true,
@@ -79,8 +79,8 @@ const IndexPage = () => {
     }
     if (!verificationCode) {
       toast({
-        title: '验证码不能为空',
-        description: '请输入验证码。',
+        title: t('verificationCodeCannotBeEmpty'),
+        description: t('enterVerificationCode'),
         status: 'warning',
         duration: 3000,
         isClosable: true,
@@ -89,8 +89,8 @@ const IndexPage = () => {
     }
     if (!password) {
       toast({
-        title: '密码不能为空',
-        description: '请输入密码。',
+        title: t('passwordCannotBeEmpty'),
+        description: t('enterPassword'),
         status: 'warning',
         duration: 3000,
         isClosable: true,
@@ -99,8 +99,8 @@ const IndexPage = () => {
     }
     if (password !== password2) {
       toast({
-        title: '两次密码不一致',
-        description: '请确认两次输入的密码一致。',
+        title: t('passwordsDoNotMatch'),
+        description: t('confirmPasswordsMatch'),
         status: 'warning',
         duration: 3000,
         isClosable: true,
@@ -118,8 +118,8 @@ const IndexPage = () => {
       return
     }
     toast({
-      title: '修改成功',
-      description: '密码修改成功，请重新登录。',
+      title: t('changeSuccess'),
+      description: t('passwordChangeSuccess'),
       status: 'success',
       duration: 3000,
       isClosable: true,
@@ -130,7 +130,7 @@ const IndexPage = () => {
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#fff" minHeight="100vh">
       <Navbar
-        title={t('changePassword') as string}
+        title={t('changePassword')}
         isFixed={true}
         leftContent={<ChevronLeft onClick={handleBack} />}
       />
@@ -140,7 +140,7 @@ const IndexPage = () => {
             <Input
               border="none"
               type="email"
-              placeholder="请输入电子邮箱"
+              placeholder={t('enterEmail')}
               size="md"
               variant="outline"
               value={email}
@@ -153,7 +153,7 @@ const IndexPage = () => {
             <Input
               border="none"
               type="text"
-              placeholder="请输入验证码"
+              placeholder={t('enterVerificationCode')}
               size="md"
               variant="outline"
               value={verificationCode}
@@ -161,21 +161,21 @@ const IndexPage = () => {
             />
             <Button
               variant="link"
-              colorScheme="teal"
-              size="sm"
+              color="green.100"
+              size="lg"
               onClick={handleGetVerificationCode}
               isDisabled={isCountingDown}
             >
-              {isCountingDown ? `重新获取 (${countdown}s)` : '获取验证码'}
+              {isCountingDown ? t('resendCode', { countdown }) : t('getVerificationCode')}
             </Button>
           </Flex>
         </FormControl>
-        <FormControl id="verification-code" mb={6}>
+        <FormControl id="password" mb={6}>
           <Flex justify="space-between" align="center" borderBottom="1px solid #eaeaea" py={2}>
             <Input
               border="none"
               type="password"
-              placeholder="请输入密码"
+              placeholder={t('enterPassword')}
               size="md"
               variant="outline"
               value={password}
@@ -183,12 +183,12 @@ const IndexPage = () => {
             />
           </Flex>
         </FormControl>
-        <FormControl id="verification-code" mb={6}>
+        <FormControl id="password2" mb={6}>
           <Flex justify="space-between" align="center" borderBottom="1px solid #eaeaea" py={2}>
             <Input
               border="none"
               type="password"
-              placeholder="请确认密码"
+              placeholder={t('confirmPassword')}
               size="md"
               variant="outline"
               value={password2}
@@ -198,13 +198,14 @@ const IndexPage = () => {
         </FormControl>
         <Button
           mt="20px"
-          colorScheme="green"
+          color="gray.50"
+          background="green.100"
           size="lg"
           width="full"
           borderRadius="full"
           onClick={handleSubmit}
         >
-          完成
+          {t('complete')}
         </Button>
       </Box>
     </Box>
