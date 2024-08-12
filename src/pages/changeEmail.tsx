@@ -184,7 +184,7 @@ const IndexPage = () => {
               onClick={handleGetVerificationCode}
               isDisabled={isCountingDown}
             >
-              {isCountingDown ? `${t('resendCode')}${ countdown }s`: t('getVerificationCode')}
+              {isCountingDown ? `${t('resendCode')}${countdown}s` : t('getVerificationCode')}
             </Button>
           </Flex>
         </FormControl>
