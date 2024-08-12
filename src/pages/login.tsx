@@ -33,7 +33,7 @@ function Login() {
     if (!userLoginData) return
     if (userLoginData?.code === 200) {
       setLocalStorage('userToken', JSON.stringify(userLoginData?.data))
-      router.push('/')
+      router.push('/home')
     } else {
       toast({
         status: 'error',

@@ -29,7 +29,7 @@ function RegistrationSuccess() {
           {t('registrationSuccessTips2') as string}
         </Text>
       </Box>
-      <BaseButton onClick={() => router.push('/')}>
+      <BaseButton onClick={() => router.push('/home')}>
         {t('registrationSuccessButton') as string}
       </BaseButton>
     </Flex>
