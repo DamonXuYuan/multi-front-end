@@ -98,7 +98,7 @@ if (typeof window !== 'undefined') {
   console.log('window', window)
   const userInfo = getLocalStorage('userInfo')
   const token = userInfo ? JSON.parse(userInfo).token : ''
-  if(token) {
+  if (token) {
     Ajax.setHeader('token', token)
   } else {
     // const { route} = Router
@@ -108,4 +108,3 @@ if (typeof window !== 'undefined') {
   }
 }
 export default new Ajax(baseUrl)
-

@@ -45,7 +45,7 @@ const BottomNavbar = ({ items, onItemClick }: BottomNavbarProps) => {
 }
 
 const TabBar: React.FC = () => {
-  const toast  = useToast()
+  const toast = useToast()
   const [activeIndex, setActiveIndex] = React.useState(0)
   const router = useRouter()
   const navItems: NavItem[] = [
@@ -57,7 +57,7 @@ const TabBar: React.FC = () => {
 
   const handleItemClick = (item: NavItem, index: number) => {
     setActiveIndex(index)
-    if(item.url === '') {
+    if (item.url === '') {
       toast({
         title: '功能开发中',
         status: 'info',

@@ -1,5 +1,14 @@
 import React, { useEffect } from 'react'
-import { Box, Flex, Text,Drawer, DrawerContent, DrawerBody, Button, DrawerOverlay } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Text,
+  Drawer,
+  DrawerContent,
+  DrawerBody,
+  Button,
+  DrawerOverlay,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -7,30 +16,28 @@ import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import { useTranslation } from 'next-i18next'
 import { getLocalStorage } from '@/utils/storage'
 
-
 const IndexPage = () => {
   const { t } = useTranslation(['user'])
   const router = useRouter()
   const handleBack = () => {
     router.back()
   }
-  const onClose = () => { 
+  const onClose = () => {
     setIsOpen(false)
   }
   const handleEmail = () => {
     setIsOpen(true)
   }
-  
+
   const [isOpen, setIsOpen] = React.useState(false)
   const [userInfo, setUserInfo] = React.useState<any>({})
   useEffect(() => {
     const user = getLocalStorage('userInfo')
-    if(user) {
-      const data  = JSON.parse(user)
+    if (user) {
+      const data = JSON.parse(user)
       setUserInfo(data.userInfo || {})
     }
-  }
-  , [])
+  }, [])
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#fff" minHeight="100vh">
       <Navbar
@@ -41,13 +48,22 @@ const IndexPage = () => {
       <Flex justify="space-between" align="center" p={4} onClick={handleEmail}>
         <Text fontSize="14px">邮箱</Text>
         <Flex align="center">
-          <Text color="gray.500" mr={2}>{userInfo.email}</Text>
-          <ChevronRight color="#C6CDD5" strokeWidth={1.5}/>
+          <Text color="gray.500" mr={2}>
+            {userInfo.email}
+          </Text>
+          <ChevronRight color="#C6CDD5" strokeWidth={1.5} />
         </Flex>
       </Flex>
-      <Flex justify="space-between" align="center" p={4} onClick={() => { router.push('/changePassword') }}>
+      <Flex
+        justify="space-between"
+        align="center"
+        p={4}
+        onClick={() => {
+          router.push('/changePassword')
+        }}
+      >
         <Text fontSize="14px">修改密码</Text>
-        <ChevronRight color="#C6CDD5" strokeWidth={1.5}/>
+        <ChevronRight color="#C6CDD5" strokeWidth={1.5} />
       </Flex>
       <Drawer
         isOpen={isOpen}
@@ -65,9 +81,7 @@ const IndexPage = () => {
                 width="100%"
                 textAlign="left"
                 fontSize={14}
-                onClick={() =>     
-                  router.push('/changeEmail')
-                }
+                onClick={() => router.push('/changeEmail')}
               >
                 更换邮箱
               </Button>

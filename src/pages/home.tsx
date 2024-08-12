@@ -1,5 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Box, VStack, Text, Image, Flex, Center, Spinner, Modal, ModalBody, ModalContent, ModalOverlay, ModalCloseButton, ModalHeader } from '@chakra-ui/react'
+import {
+  Box,
+  VStack,
+  Text,
+  Image,
+  Flex,
+  Center,
+  Spinner,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  ModalCloseButton,
+  ModalHeader,
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import TabBar from '@/components/TabBar'
@@ -10,7 +24,7 @@ import { boxGetList } from '@/api/box'
 import { afficheGetNew } from '@/api/affiche'
 import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import { useTranslation } from 'next-i18next'
-import DOMPurify from "dompurify";
+import DOMPurify from 'dompurify'
 interface Cover {
   show_src: string
   height: number
@@ -75,7 +89,16 @@ const HomePage = () => {
           >
             <Image src={MhBanner} alt="Blind Box" objectFit="contain" width="100%" height="175px" />
           </Box>
-          <Flex align="center" bg="white" p={3} borderRadius="3xl" boxShadow="sm" mt={5} mb={8} onClick={handleNotice}>
+          <Flex
+            align="center"
+            bg="white"
+            p={3}
+            borderRadius="3xl"
+            boxShadow="sm"
+            mt={5}
+            mb={8}
+            onClick={handleNotice}
+          >
             <Image src={notice} w="20px" h="20px" mr="5px"></Image>
             <Text color="gray.500">{afficheTitle}</Text>
           </Flex>
@@ -113,7 +136,7 @@ const HomePage = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bg="#fff">
-          <ModalHeader textAlign='center'>{ afficheTitle }</ModalHeader>
+          <ModalHeader textAlign="center">{afficheTitle}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Box

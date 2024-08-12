@@ -10,7 +10,6 @@ import { inviteinfo, receive } from '@/api/box'
 import MhBanner from '@/assets/imgs/mhBanner.png'
 import tealBg from '@/assets/imgs/tealBg.png'
 
-
 const BoxPage = () => {
   const { t } = useTranslation(['box'])
   const router = useRouter()
@@ -19,10 +18,14 @@ const BoxPage = () => {
   }
   const [boxData, setBoxData] = useState<any>({})
   const { id } = router.query
-  const { data: inviteinfoData } = useSWR(id ? inviteinfo.key : null, () => inviteinfo.fetcher({ id }), {
-    revalidateOnFocus: false,
-  })
-  useSWR(boxData.if_can_receive ?  receive.key : null, receive.fetcher)
+  const { data: inviteinfoData } = useSWR(
+    id ? inviteinfo.key : null,
+    () => inviteinfo.fetcher({ id }),
+    {
+      revalidateOnFocus: false,
+    }
+  )
+  useSWR(boxData.if_can_receive ? receive.key : null, receive.fetcher)
   const handleReceive = () => {
     if (boxData.if_can_receive) {
       mutate(receive.key)
@@ -35,8 +38,12 @@ const BoxPage = () => {
   }, [inviteinfoData])
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="white" minHeight="100vh">
-      <Navbar title={t('title')} isFixed={true} leftContent={<ChevronLeft onClick={handleBack} />} />
-      <Image src={MhBanner} alt="box" h="257px" onClick={() => router.push('/inviteList')}/>
+      <Navbar
+        title={t('title')}
+        isFixed={true}
+        leftContent={<ChevronLeft onClick={handleBack} />}
+      />
+      <Image src={MhBanner} alt="box" h="257px" onClick={() => router.push('/inviteList')} />
       <VStack
         align="stretch"
         spacing="12px"

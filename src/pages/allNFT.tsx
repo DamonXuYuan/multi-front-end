@@ -24,9 +24,8 @@ const BoxListPage = () => {
   const handleBack = () => {
     router.back()
   }
-  const { data: boxData } = useSWR(
-    boxGetMyList.key,
-    () => boxGetMyList.fetcher({ page: 1, limit: 20, }),
+  const { data: boxData } = useSWR(boxGetMyList.key, () =>
+    boxGetMyList.fetcher({ page: 1, limit: 20 })
   )
   useEffect(() => {
     if (boxData && boxData.code === 200) {
@@ -47,17 +46,19 @@ const BoxListPage = () => {
         </Center>
       ) : (
         <VStack align="stretch" spacing="12px" px="12px" pt="12px" position="relative" zIndex={1}>
-           <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-              { boxList.map((nft, index) => (
-                <GridItem key={index} backgroundColor="#fff" borderRadius="lg" overflow="hidden">
-                  <Image w={169} h={116} src={nft.box.picture} alt={nft.box.title} />
-                  <Box p={4}>
-                    <Text fontWeight="bold">{nft.box.title}</Text>
-                    <Text fontWeight="bold" color="green.500">{nft.price}</Text>
-                  </Box>
-                </GridItem>
-              ))}
-            </Grid>
+          <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+            {boxList.map((nft, index) => (
+              <GridItem key={index} backgroundColor="#fff" borderRadius="lg" overflow="hidden">
+                <Image w={169} h={116} src={nft.box.picture} alt={nft.box.title} />
+                <Box p={4}>
+                  <Text fontWeight="bold">{nft.box.title}</Text>
+                  <Text fontWeight="bold" color="green.500">
+                    {nft.price}
+                  </Text>
+                </Box>
+              </GridItem>
+            ))}
+          </Grid>
         </VStack>
       )}
       {!boxData && boxList.length === 0 ? (

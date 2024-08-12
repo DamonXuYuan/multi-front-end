@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Flex, Text} from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import { ChevronLeft, Check } from 'lucide-react'
@@ -14,17 +14,14 @@ const IndexPage = () => {
     router.back()
   }
   const [language, setLanguage] = React.useState('')
-  const [languageArr] = React.useState([
-    { name: 'English', value: 'en' },
-  ])
-  const changeLanguage = (value: string) => { 
+  const [languageArr] = React.useState([{ name: 'English', value: 'en' }])
+  const changeLanguage = (value: string) => {
     setLanguage(value)
     setLocalStorage('lang', value)
   }
   useEffect(() => {
     setLanguage(getLocalStorage('lang') || 'en')
-  }
-  , [])
+  }, [])
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#fff" minHeight="100vh">
       <Navbar
@@ -32,14 +29,21 @@ const IndexPage = () => {
         isFixed={true}
         leftContent={<ChevronLeft onClick={handleBack} />}
       />
-      {
-        languageArr.map((item, index) => (
-          <Flex justify="space-between" align="center" height={20} p={4} key={index} onClick={() => changeLanguage(item.value)}>
-            <Text fontSize="14px" color={ language === item.value ? 'green.100' : 'gray' }>{item.name}</Text>
-            {language === item.value && <Check color="#51CEAA" strokeWidth={2}/>}
-          </Flex>
-        ))
-      }
+      {languageArr.map((item, index) => (
+        <Flex
+          justify="space-between"
+          align="center"
+          height={20}
+          p={4}
+          key={index}
+          onClick={() => changeLanguage(item.value)}
+        >
+          <Text fontSize="14px" color={language === item.value ? 'green.100' : 'gray'}>
+            {item.name}
+          </Text>
+          {language === item.value && <Check color="#51CEAA" strokeWidth={2} />}
+        </Flex>
+      ))}
     </Box>
   )
 }

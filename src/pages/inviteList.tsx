@@ -63,7 +63,15 @@ const InviteListPage = () => {
         objectFit="fill"
       />
       <Box px={10} display="flex" flexDirection="column" alignItems="center" position="relative">
-        <Box position="absolute" border="1px solid #eee" top="0" right={5} p={2} borderRadius={33} onClick={() => router.push('/inviteRule')}>
+        <Box
+          position="absolute"
+          border="1px solid #eee"
+          top="0"
+          right={5}
+          p={2}
+          borderRadius={33}
+          onClick={() => router.push('/inviteRule')}
+        >
           <Text color="#fff">{t('InviteRulesText')}</Text>
         </Box>
         <VStack position="relative" zIndex={1} color="white" fontWeight="bold" mt="22px">

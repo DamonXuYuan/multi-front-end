@@ -13,7 +13,7 @@ const IndexPage = () => {
   const handleBack = () => {
     router.back()
   }
-  
+
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#fff" minHeight="100vh">
       <Navbar

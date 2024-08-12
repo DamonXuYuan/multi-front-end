@@ -15,7 +15,7 @@ import lgue from '@/assets/imgs/lgue.png'
 import safe from '@/assets/imgs/safe.png'
 import about from '@/assets/imgs/about.png'
 import setting from '@/assets/imgs/setting.png'
-import {getLocalStorageObj, removeLocalStorage} from '@/utils/storage'
+import { getLocalStorageObj, removeLocalStorage } from '@/utils/storage'
 const BoxListPage = () => {
   const { t } = useTranslation(['user', 'common'])
   const toast = useToast()
@@ -34,7 +34,7 @@ const BoxListPage = () => {
       isClosable: true,
       duration: 3000,
     })
-    return;
+    return
   }
   const handleLogout = () => {
     removeLocalStorage('userInfo')
@@ -44,8 +44,7 @@ const BoxListPage = () => {
   useEffect(() => {
     const data = getLocalStorageObj('userInfo')
     setUserInfo(data.userInfo || {})
-  }
-  , [])
+  }, [])
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#FAFAFA" minHeight="100vh">
       <Navbar
@@ -156,7 +155,9 @@ const BoxListPage = () => {
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
-            onClick={() => { router.push('/systemLanguage') }}
+            onClick={() => {
+              router.push('/systemLanguage')
+            }}
           >
             <HStack>
               <Image
@@ -216,7 +217,9 @@ const BoxListPage = () => {
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
-            onClick={() => { router.push('/about') }}
+            onClick={() => {
+              router.push('/about')
+            }}
           >
             <HStack>
               <Image
