@@ -1,11 +1,12 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import Router from 'next/router'
 import { getLocalStorage, removeLocalStorage } from '@/utils/storage'
+import { config } from '@/config'
 // import { config } from '@/config'
 
 // const baseURLMap = new Map() //不同baseUrl的映射
 class Ajax {
-  constructor(baseUrl = 'http://api.gxsccw.com') {
+  constructor(baseUrl = config?.baseUrl) {
     if (process.env.NODE_ENV === 'development') {
       baseUrl += '/'
     } else if (process.env.NODE_ENV === 'production') {
