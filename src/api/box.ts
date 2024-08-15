@@ -13,8 +13,8 @@ export const boxGetList = {
   key: '/box/getList',
 }
 export const receive = {
-  fetcher: () => ajax.post('/box/receive'),
-  key: '/box/receive',
+  fetcher: () => ajax.post('/api/box/receive'),
+  key: '/api/box/receive',
 }
 export const boxGetMyList = {
   fetcher: (params: Record<string, any>) => ajax.get('/api/box/getMyList', params),
