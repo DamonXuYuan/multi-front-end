@@ -53,7 +53,6 @@ function Registration() {
 
   useEffect(() => {
     if (!userRegisterData) return
-    console.log(userRegisterData, 666)
     if (userRegisterData?.code === 200) {
       setLocalStorage('userToken', JSON.stringify(userRegisterData?.data?.token))
       setLocalStorage('userInfo', JSON.stringify(userRegisterData?.data?.userInfo))
