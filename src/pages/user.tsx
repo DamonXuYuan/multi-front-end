@@ -6,10 +6,12 @@ import { ChevronLeft } from 'lucide-react'
 import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import { useTranslation } from 'next-i18next'
 import inviteBg from '@/assets/imgs/invite_bg.png'
+import inviteBgEn from '@/assets/imgs/invite_bg_en.png'
 import arrowRight from '@/assets/imgs/arrowRight.png'
 import orderImgs from '@/assets/imgs/order.png'
 import like from '@/assets/imgs/like.png'
 import wbag from '@/assets/imgs/wbag.png'
+import avatar from '@/assets/imgs/avatar.png'
 import logout from '@/assets/imgs/logout.png'
 import lgue from '@/assets/imgs/lgue.png'
 import safe from '@/assets/imgs/safe.png'
@@ -17,7 +19,7 @@ import about from '@/assets/imgs/about.png'
 import setting from '@/assets/imgs/setting.png'
 import { getLocalStorage, removeLocalStorage } from '@/utils/storage'
 const BoxListPage = () => {
-  const { t } = useTranslation(['user', 'common'])
+  const { t, i18n } = useTranslation(['user', 'common'])
   const toast = useToast()
   const router = useRouter()
   const [userInfo, setUserInfo] = React.useState<any>({})
@@ -49,6 +51,7 @@ const BoxListPage = () => {
     setUserInfo(data || {})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  console.log(i18n?.language, 888)
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#FAFAFA" minHeight="100vh">
       <Navbar
@@ -60,7 +63,7 @@ const BoxListPage = () => {
         <Flex p="12px" flexDirection="row" justifyContent="space-between" alignItems="center">
           <HStack>
             <Image
-              src={userInfo.avatar}
+              src={userInfo?.avatar || avatar}
               alt={t('user')}
               objectFit="cover"
               width="64px"
@@ -95,7 +98,7 @@ const BoxListPage = () => {
         </Flex>
         <Image
           onClick={() => router.push('/inviteList')}
-          src={inviteBg}
+          src={i18n?.language === 'zh' ? inviteBg : inviteBgEn}
           alt={t('blindBox')}
           objectFit="cover"
           width="100%"

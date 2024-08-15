@@ -32,10 +32,10 @@ const IndexPage = () => {
           MULTI 1.0.0
         </Text>
         <Text fontSize="lg" color="gray.600" textIndent="20px">
-          {t('aboutUsContent1')}
+          {t('aboutUsContentText1')}
         </Text>
         <Text fontSize="lg" color="gray.600" textIndent="20px">
-          {t('aboutUsContent2')}
+          {t('aboutUsContentText2')}
         </Text>
       </VStack>
     </Box>

@@ -18,6 +18,7 @@ import { useRouter } from 'next/router'
 import Navbar from '@/components/NavBar'
 import TabBar from '@/components/TabBar'
 import MhBanner from '@/assets/imgs/mhBanner.png'
+import MhBanner_en from '@/assets/imgs/mhBanner_en.png'
 import notice from '@/assets/imgs/notice.png'
 import useSWR from 'swr'
 import { boxGetList } from '@/api/box'
@@ -41,7 +42,7 @@ function Index() {
   const [content, setContent] = useState('')
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
-  const { t } = useTranslation(['home'])
+  const { t, i18n } = useTranslation(['home'])
   const goBoxPage = (id: number) => {
     router.push({
       pathname: '/box',
@@ -87,7 +88,13 @@ function Index() {
             overflow="hidden"
             onClick={goInvitePage}
           >
-            <Image src={MhBanner} alt="Blind Box" objectFit="contain" width="100%" height="175px" />
+            <Image
+              src={i18n?.language === 'zh' ? MhBanner : MhBanner_en}
+              alt="Blind Box"
+              objectFit="contain"
+              width="100%"
+              height="175px"
+            />
           </Box>
           <Flex
             align="center"
