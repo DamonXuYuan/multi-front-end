@@ -14,7 +14,7 @@ class Ajax {
     }
     if (typeof window !== 'undefined') {
       const userToken = getLocalStorage('userToken')
-      const token = userToken ? JSON.parse(userToken).token : ''
+      const token = userToken ? JSON.parse(userToken) : ''
       if (token) {
         Ajax.setHeader('token', token)
       } else {

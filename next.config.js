@@ -7,23 +7,6 @@ const version = process.env.APP_VERSION || clientConfig.version
 
 module.exports = withImages({
   // distDir: 'dist',
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/api/:path*',
-  //       destination: 'http://api.gxsccw.com/:path*',
-  //     },
-  //   ]
-  // },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: '/home',
-  //       permanent: true,
-  //     },
-  //   ]
-  // },
   experimental: {
     eslint: true,
   },

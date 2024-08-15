@@ -10,6 +10,7 @@ import useSWR from 'swr'
 import { userLogin } from '@/api/login'
 import { setLocalStorage } from '@/utils/storage'
 import { FailToast } from '@/components/BaseToast'
+// import ajax from '@/utils/request'
 
 function Login() {
   const router = useRouter()
@@ -32,7 +33,9 @@ function Login() {
   useEffect(() => {
     if (!userLoginData) return
     if (userLoginData?.code === 200) {
-      setLocalStorage('userToken', JSON.stringify(userLoginData?.data))
+      setLocalStorage('userToken', JSON.stringify(userLoginData?.data?.token))
+      setLocalStorage('userInfo', JSON.stringify(userLoginData?.data?.userInfo))
+      // Ajax.setHeader('token', userLoginData?.data)
       router.push('/')
     } else {
       toast({

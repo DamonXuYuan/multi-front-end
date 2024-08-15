@@ -8,16 +8,21 @@ import { useTranslation } from 'next-i18next'
 import { setLocalStorage, getLocalStorage } from '@/utils/storage'
 
 const IndexPage = () => {
-  const { t } = useTranslation(['user'])
+  const { t, i18n } = useTranslation(['user'])
   const router = useRouter()
   const handleBack = () => {
-    router.back()
+    router.push('/user')
   }
   const [language, setLanguage] = React.useState('')
-  const [languageArr] = React.useState([{ name: 'English', value: 'en' }])
+  const [languageArr] = React.useState([
+    { name: 'English', value: 'en' },
+    { name: '简体中文', value: 'zh' },
+  ])
   const changeLanguage = (value: string) => {
     setLanguage(value)
     setLocalStorage('lang', value)
+    i18n.changeLanguage(value)
+    router.push(`/${value}/systemLanguage`)
   }
   useEffect(() => {
     setLanguage(getLocalStorage('lang') || 'en')

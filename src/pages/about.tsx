@@ -31,8 +31,11 @@ const IndexPage = () => {
         <Text fontSize="xl" fontWeight="bold">
           MULTI 1.0.0
         </Text>
-        <Text fontSize="lg" color="gray.600">
-          我们公司成立于2010年，是一家专注于数据内容填充的公司。
+        <Text fontSize="lg" color="gray.600" textIndent="20px">
+          {t('aboutUsContent1')}
+        </Text>
+        <Text fontSize="lg" color="gray.600" textIndent="20px">
+          {t('aboutUsContent2')}
         </Text>
       </VStack>
     </Box>

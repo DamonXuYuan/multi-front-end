@@ -35,7 +35,7 @@ interface BoxItem {
   cover: Cover
 }
 
-function App() {
+function Index() {
   const [afficheTitle, setAfficheTitle] = useState('')
   const [boxList, setBoxList] = useState<BoxItem[]>([])
   const [content, setContent] = useState('')
@@ -158,4 +158,4 @@ export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
     props: { ...(await getI18nSSRProps(ctx, ['home'])) },
   }
 }
-export default App
+export default Index
