@@ -42,7 +42,10 @@ const BoxListPage = () => {
     router.replace('/login')
   }
   useEffect(() => {
-    const data = getLocalStorageObj('userInfo')
+    const data = getLocalStorageObj('userToken')
+    if (!data.token) {
+      handleLogout();
+    }
     setUserInfo(data.userInfo || {})
   }, [])
   return (

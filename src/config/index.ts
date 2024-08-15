@@ -8,6 +8,6 @@ export interface IConfig {
 export const config: IConfig = {
   cdnUrl: '',
   apiUrl: '',
-  baseUrl: 'https://api.gxsccw.com',
+  baseUrl: 'http://api.gxsccw.com',
   authKey: 'Authorization',
 }
