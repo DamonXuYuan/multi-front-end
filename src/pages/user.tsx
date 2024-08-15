@@ -15,7 +15,7 @@ import lgue from '@/assets/imgs/lgue.png'
 import safe from '@/assets/imgs/safe.png'
 import about from '@/assets/imgs/about.png'
 import setting from '@/assets/imgs/setting.png'
-import { getLocalStorageObj, removeLocalStorage } from '@/utils/storage'
+import { getLocalStorage, getLocalStorageObj, removeLocalStorage } from '@/utils/storage'
 const BoxListPage = () => {
   const { t } = useTranslation(['user', 'common'])
   const toast = useToast()
@@ -42,8 +42,13 @@ const BoxListPage = () => {
     router.replace('/login')
   }
   useEffect(() => {
-    const data = getLocalStorageObj('userInfo')
-    setUserInfo(data.userInfo || {})
+    if (getLocalStorage('userInfo') && getLocalStorage('userToken')) {
+      const data = getLocalStorageObj('userInfo')
+      setUserInfo(data.userInfo || {})
+    } else {
+      router.push('/login')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#FAFAFA" minHeight="100vh">

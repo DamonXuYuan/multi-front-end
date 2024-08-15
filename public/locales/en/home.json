@@ -52,5 +52,14 @@
   "navDraw": "抽签",
   "navStake": "质押",
   "navMine": "我的",
-  "featureInDevelopment": "功能开发中，敬请期待"
+  "featureInDevelopment": "功能开发中，敬请期待",
+  "ruleTitle": "Activity Rules",
+  "rule1Title": "1. Event time",
+  "rule1": "Invite friends to participate in blind boxesand lottery benefts. The bounty is valid for along time.",
+  "rule2Title": "2. How to participate",
+  "rule2.1": "1. Invite friends. On the invitation andearning event page, click 【linvite Now】toshare the poster or link to your friends.",
+  "rule2.2": "2. Invite friends successfully to help blindboxes and lottery When the invited friends successfully register, your blind box NFT collection timewill be reduced and the probability of lottery will increase;",
+  "rule2.3": "More invitation friend benefts are constantlyenriched, so stay tuned!",
+  "rule3Title": "3. Notes",
+  "rule3": "1. Invitations that are malicious or do notmeet risk control will not be recorded asvalid invitations"
 }

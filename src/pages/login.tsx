@@ -108,10 +108,10 @@ function Login() {
           value={userPassword}
           onChange={(val) => setUserPassword(val?.target?.value)}
         />
-        <Text ml="auto" mb="40px" color="green.100" fontSize="12px" lineHeight="24px">
+        {/* <Text ml="auto" color="green.100" fontSize="12px" lineHeight="24px">
           {t('forgetPWD') as string}
-        </Text>
-        <BaseButton mb="15px" isLoading={userLoginLoading} onClick={() => login()}>
+        </Text> */}
+        <BaseButton mt="40px" mb="15px" isLoading={userLoginLoading} onClick={() => login()}>
           {t('loginButton') as string}
         </BaseButton>
         <BaseButton
