@@ -3,6 +3,7 @@ module.exports = {
     locales: ['en', 'zh'],
     defaultLocale: 'en',
     // 自动区域检测
-    localeDetection: false,
+    localeDetection: true,
+    ns: ['box', 'common', 'home', 'raffle', 'user'],
   },
 }
