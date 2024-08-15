@@ -82,6 +82,14 @@ const BoxListPage = () => {
             width="24px"
             height="24px"
             borderRadius="4px"
+            onClick={() => {
+              toast({
+                title: t('featureInDevelopment'),
+                status: 'info',
+                duration: 3000,
+                isClosable: true,
+              })
+            }}
           />
         </Flex>
         <Image
@@ -284,7 +292,7 @@ const BoxListPage = () => {
 
 export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
   return {
-    props: { ...(await getI18nSSRProps(ctx, ['user'])) },
+    props: { ...(await getI18nSSRProps(ctx, ['user', 'common'])) },
   }
 }
 

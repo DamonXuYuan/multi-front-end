@@ -17,7 +17,7 @@ const IndexPage = () => {
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#fff" minHeight="100vh">
       <Navbar
-        title={t('aboutTitle') as string}
+        title={t('aboutUs') as string}
         isFixed={true}
         leftContent={<ChevronLeft onClick={handleBack} />}
       />

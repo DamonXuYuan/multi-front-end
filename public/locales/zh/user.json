@@ -32,7 +32,7 @@
   "passwordChangeSuccess": "密码修改成功，请重新登录。",
   "enterEmail": "请输入电子邮箱",
   "confirmPassword": "请确认密码",
-  "resendCode": "重新获取",
+  "resendCode": "重新获取 ({countdown}s)",
   "getVerificationCode": "获取验证码",
   "complete": "完成",
   "featureInDevelopment": "功能开发中，敬请期待"
