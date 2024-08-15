@@ -44,7 +44,7 @@ const BoxListPage = () => {
   useEffect(() => {
     const data = getLocalStorageObj('userToken')
     if (!data.token) {
-      handleLogout();
+      handleLogout()
     }
     setUserInfo(data.userInfo || {})
   }, [])
