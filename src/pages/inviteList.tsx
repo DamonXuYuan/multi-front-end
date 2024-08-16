@@ -7,8 +7,9 @@ import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 import { useTranslation } from 'next-i18next'
 import inviteBg from '@/assets/imgs/inviteBg.png'
 import share from '@/assets/imgs/share.png'
+import avatar from '@/assets/imgs/avatar.png'
 import useSWR from 'swr'
-import { inviterelate } from '@/api/user'
+import { inviterelate, invites} from '@/api/user'
 interface InviteItem {
   id: number
   title: string
@@ -22,12 +23,19 @@ const InviteListPage = () => {
   const handleBack = () => {
     router.back()
   }
-  const { data: inviteData } = useSWR(inviterelate.key, () => inviterelate.fetcher(), {
-    revalidateOnFocus: false,
-  })
+  const { data: inviteData } = useSWR(inviterelate.key, () => inviterelate.fetcher())
+  const { data: inviteListData } = useSWR(invites.key, () => invites.fetcher( {
+    page: 1,
+    limit: 200,
+  }), )
+  useEffect(() => {
+    if (inviteListData && inviteListData.code === 200) {
+      setInviteList(inviteListData.data?.list || [])
+    }
+  }, [inviteListData])
+
   useEffect(() => {
     if (inviteData && inviteData.code === 200) {
-      setInviteList(inviteData.data?.my_invited_users || [])
       setInviteCode(inviteData.data?.user_code || '')
       setInviteSrc(inviteData.data?.invited_link || '')
     }
@@ -68,7 +76,7 @@ const InviteListPage = () => {
           border="1px solid #eee"
           top="0"
           right={5}
-          p={2}
+          p={1}
           borderRadius={33}
           onClick={() => router.push('/inviteRule')}
         >
@@ -89,25 +97,27 @@ const InviteListPage = () => {
           h="400px"
         >
           <HStack justifyContent="space-between">
-            <Text fontSize="16px" fontWeight="bold">
+            <Text fontSize="16px" fontWeight="bold" pb={2}>
               {t('myInvitations', { count: inviteList.length })}
             </Text>
           </HStack>
-          {inviteList.map((item: any) => (
-            <Stack spacing="20px" mt="10px" key={item.email}>
-              <HStack>
-                <Image borderRadius="40px" w="40px" h="40px" src={inviteBg} />
-                <Box>
-                  <Heading size="xs" mt="5px">
-                    {item.email}
-                  </Heading>
-                  <Text pt="2" fontSize="sm" color="gray.500">
-                    {item.time}
-                  </Text>
-                </Box>
-              </HStack>
-            </Stack>
-          ))}
+          <Box overflowY="scroll" height="90%">
+            {inviteList.map((item: any) => (
+              <Stack spacing="20px" mt="10px" key={item.id}>
+                <HStack>
+                  <Image borderRadius="40px" w="40px" h="40px" src={avatar} />
+                  <Box>
+                    <Heading size="xs" mt="5px">
+                      {item.user.email}
+                    </Heading>
+                    <Text pt="2" fontSize="sm" color="gray.500">
+                      {item.invite_at}
+                    </Text>
+                  </Box>
+                </HStack>
+              </Stack>
+            ))}
+          </Box>
         </Box>
         <Button
           colorScheme="#51CEAA"
