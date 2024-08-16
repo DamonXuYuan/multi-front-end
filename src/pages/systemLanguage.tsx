@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 import { setLocalStorage, getLocalStorage } from '@/utils/storage'
 
 const IndexPage = () => {
-  const { t, i18n } = useTranslation(['user'])
+  const { t } = useTranslation(['user'])
   const router = useRouter()
   const handleBack = () => {
     router.push('/user')
@@ -18,15 +18,24 @@ const IndexPage = () => {
     { name: 'English', value: 'en' },
     { name: '简体中文', value: 'zh' },
   ])
+
+  const spellQuery = (queryObj: Record<string, any>) => {
+    let str = ''
+    Object.keys(queryObj).map((item) => {
+      str += `${item}=${queryObj[item]}&`
+    })
+    return str.substring(0, str.length - 1)
+  }
+
   const changeLanguage = (value: string) => {
     setLanguage(value)
     setLocalStorage('lang', value)
-    i18n.changeLanguage(value)
-    router.push(`/${value}/systemLanguage`)
   }
+
   useEffect(() => {
     setLanguage(getLocalStorage('lang') || 'en')
   }, [])
+
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#fff" minHeight="100vh">
       <Navbar
@@ -41,7 +50,13 @@ const IndexPage = () => {
           height={20}
           p={4}
           key={index}
-          onClick={() => changeLanguage(item.value)}
+          onClick={() => {
+            changeLanguage(item.value)
+            const queryStr = spellQuery(router.query)
+            router.push(`${router.pathname}?${queryStr}`, undefined, {
+              locale: router.locale === 'en' ? 'zh' : 'en',
+            })
+          }}
         >
           <Text fontSize="14px" color={language === item.value ? 'green.100' : 'gray'}>
             {item.name}

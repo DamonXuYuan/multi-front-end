@@ -51,7 +51,6 @@ const BoxListPage = () => {
     setUserInfo(data || {})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log(i18n?.language, 888)
   return (
     <Box margin="auto" pt="44px" pb="48px" bg="#FAFAFA" minHeight="100vh">
       <Navbar
