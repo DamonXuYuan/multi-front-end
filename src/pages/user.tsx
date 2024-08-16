@@ -118,7 +118,7 @@ const BoxListPage = () => {
               {t('myCollections')}
             </Text>
           </HStack>
-          <HStack flex="1" onClick={handleNoAction}>
+          <HStack flex="1" onClick={() => router.push('/wallet')}>
             <Image
               src={wbag}
               alt={t('blindBox')}

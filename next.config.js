@@ -9,6 +9,7 @@ module.exports = withImages({
   // distDir: 'dist',
   experimental: {
     eslint: true,
+    esmExternals: true,
   },
 
   i18n,
