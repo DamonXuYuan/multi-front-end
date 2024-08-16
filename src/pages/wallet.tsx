@@ -8,7 +8,8 @@ import { useRouter } from 'next/router'
 
 import walletBg from '@/assets/imgs/walletBg.png'
 import walletCardBg from '@/assets/imgs/walletCardBg.png'
-import BaseButton from '@/components/BaseButton'
+// import BaseButton from '@/components/BaseButton'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const Wallet = () => {
   // const { t } = useTranslation(['box'])
@@ -21,7 +22,8 @@ const Wallet = () => {
   const ConnectWallet = () => {
     return (
       <Flex flexDir="column">
-        <BaseButton bgColor="green.100">Connect Wallet</BaseButton>
+        {/* <BaseButton bgColor="green.100">Connect Wallet</BaseButton> */}
+        <ConnectButton />
       </Flex>
     )
   }

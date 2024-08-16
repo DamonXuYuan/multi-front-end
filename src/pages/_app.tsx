@@ -4,14 +4,32 @@ import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 import { getI18nSSRProps, GetI18nStaticProps } from '@/utils/i18n'
 import theme from '@/theme'
+import { useRouter } from 'next/router'
 import '@/styles/global.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
+import '@rainbow-me/rainbowkit/styles.css'
+import { getDefaultConfig, RainbowKitProvider, Locale } from '@rainbow-me/rainbowkit'
+import { WagmiProvider } from 'wagmi'
+import { bscTestnet } from 'wagmi/chains'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+
 function App({ Component, pageProps }: AppProps) {
+  const { locale } = useRouter() as { locale: Locale }
+
+  const config = getDefaultConfig({
+    appName: 'Multi',
+    projectId: '734798448c471d6d73535535765d58cc',
+    chains: [bscTestnet],
+    ssr: true, // If your dApp uses server side rendering (SSR)
+  })
+
+  const queryClient = new QueryClient()
+
   return (
     <>
       <Head>
-        <title>M ulti</title>
+        <title>Multi</title>
         <meta charSet="utf-8" />
         <meta name="App-Config" content="fullscreen=yes,useHistoryState=yes,transition=yes" />
         <meta content="yes" name="apple-mobile-web-app-capable" />
@@ -32,11 +50,17 @@ function App({ Component, pageProps }: AppProps) {
           rel="apple-touch-icon-precomposed"
         /> */}
       </Head>
-      <ChakraProvider resetCSS theme={theme}>
-        {/* <Header /> */}
-        <Component {...(pageProps ?? {})} />
-        {/* </ModalProvider> */}
-      </ChakraProvider>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider locale={locale}>
+            <ChakraProvider resetCSS theme={theme}>
+              {/* <Header /> */}
+              <Component {...(pageProps ?? {})} />
+              {/* </ModalProvider> */}
+            </ChakraProvider>
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
     </>
   )
 }
