@@ -17,7 +17,7 @@ export const getI18nSSRProps = async (
 ) => {
   // 按需加载国际化数组
   const i18nProps = await serverSideTranslations(locale, ['common', ...localeArr])
-  const { title } = i18nProps._nextI18Next.initialI18nStore[locale][localeArr[0]]
+  const { title } = i18nProps?._nextI18Next?.initialI18nStore[locale][localeArr[0]] || ''
   return {
     ...i18nProps,
     title,
