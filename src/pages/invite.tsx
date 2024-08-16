@@ -8,6 +8,7 @@ import downloadIcon from '@/assets/imgs/download.png'
 import qrcodeBg from '@/assets/imgs/qrcodeBg.png'
 import { useTranslation } from 'next-i18next'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { getI18nSSRProps, GetI18nServerSideProps } from '@/utils/i18n'
 const InvitePage = () => {
   const { t } = useTranslation(['home'])
   const toast = useToast()
@@ -131,5 +132,9 @@ const InvitePage = () => {
     </Box>
   )
 }
-
+export const getServerSideProps = async (ctx: GetI18nServerSideProps) => {
+  return {
+    props: { ...(await getI18nSSRProps(ctx, ['home'])) },
+  }
+}
 export default InvitePage

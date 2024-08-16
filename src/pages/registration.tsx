@@ -24,7 +24,7 @@ function Registration() {
   const [captchaErr, setCaptchaErr] = useState('')
   const [invitationCode, setinvitationCode] = useState('')
   const [registerClick, setRegister] = useBoolean(false)
-  const [sendEmailCode, setSendEmailCode] = useBoolean(false)
+  const [sendEmailCode, setSendEmailCode] = useState(false)
 
   const { data: userRegisterData, isLoading: registerLoading } = useSWR(
     userPassword && comfirmUserPassword && userEmail && captcha && registerClick
@@ -44,8 +44,9 @@ function Registration() {
   const { data: sendCodeData } = useSWR(
     userEmail && sendEmailCode ? [sendCode.key, sendEmailCode] : null,
     () =>
-      userRegister.fetcher({
+      sendCode.fetcher({
         email: userEmail,
+        type: 1,
       }),
     { revalidateOnFocus: false }
   )
@@ -53,14 +54,15 @@ function Registration() {
   useEffect(() => {
     if (!userRegisterData) return
     if (userRegisterData?.code === 200) {
-      setLocalStorage('userInfo', JSON.stringify(userRegisterData?.data))
+      setLocalStorage('userToken', JSON.stringify(userRegisterData?.data?.token))
+      setLocalStorage('userInfo', JSON.stringify(userRegisterData?.data?.userInfo))
       router.push('/registrationSuccess')
     } else {
       toast({
         status: 'error',
         duration: 3000,
         isClosable: true,
-        render: () => <FailToast>{userRegisterData?.data?.message}</FailToast>,
+        render: () => <FailToast>{userRegisterData?.msg}</FailToast>,
       })
       setRegister.off()
     }
@@ -84,10 +86,9 @@ function Registration() {
         render: () => <FailToast>{sendCodeData?.data?.message}</FailToast>,
       })
     }
-    setSendEmailCode.off()
+    setSendEmailCode(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sendCodeData])
-
   // 注册点击事件, 并二次检查
   const clickRegister = () => {
     // 检查密码长度是否在6到12位之间
@@ -205,7 +206,7 @@ function Registration() {
               setCaptchaErr(t('registrationErrorCaptcha'))
             }
           }}
-          captchaClick={() => setSendEmailCode.on()}
+          captchaClick={() => setSendEmailCode(true)}
         />
         <BaseInput
           placeholder={t('invitationCode')}

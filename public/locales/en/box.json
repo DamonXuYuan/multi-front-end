@@ -1,5 +1,20 @@
 {
-  "title": "Box",
-  "boxListTitle": "开盒记录",
-  "noData": "暂无数据"
+  "title": "Multiverse",
+  "boxListTitle": "Unboxing Record",
+  "allNFTTitle": "My Collection",
+  "noData": "No Data Available",
+  "limited": "Limited Edition",
+  "items": "100 Pieces",
+  "boxRecord": "Unboxing Record",
+  "blindBoxDescription": "Blind Box Event Description",
+  "newUserNFT": "1、Exclusive NFT for New Users, Can Be Claimed Again After 7 Days",
+  "inviteNewUser": "2、Invite New Users, Reduce Claim Countdown by 3 Hours",
+  "cumulativeInvite": "3、Accumulate 50 Invited New Users, Receive 1 NFT Every Hour",
+  "completeInviteTask": "4、Complete Invitation Tasks, Up to 24 NFTs Can Be Claimed",
+  "inviteFriends": "Invite Friends",
+  "currentNFT": "Current NFT",
+  "totalInvites": "Accumulated Invitations{{count}}People",
+  "reducedHours": "Reduced：{{count}}Hours",
+  "nextClaimTime": "Next Claim Time：{{time}}",
+  "pendingClaim": "Pending Claim"
 }

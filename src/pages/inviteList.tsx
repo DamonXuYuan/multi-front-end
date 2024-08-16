@@ -62,7 +62,18 @@ const InviteListPage = () => {
         h="100%"
         objectFit="fill"
       />
-      <Box px="30" display="flex" flexDirection="column" alignItems="center">
+      <Box px={10} display="flex" flexDirection="column" alignItems="center" position="relative">
+        <Box
+          position="absolute"
+          border="1px solid #eee"
+          top="0"
+          right={5}
+          p={2}
+          borderRadius={33}
+          onClick={() => router.push('/inviteRule')}
+        >
+          <Text color="#fff">{t('InviteRulesText')}</Text>
+        </Box>
         <VStack position="relative" zIndex={1} color="white" fontWeight="bold" mt="22px">
           <Text fontSize="28px">{t('inviteListTitle')}</Text>
           <Text fontSize="28px">{t('inviteListTips')}</Text>
@@ -83,11 +94,11 @@ const InviteListPage = () => {
             </Text>
           </HStack>
           {inviteList.map((item: any) => (
-            <Stack spacing="20px" mt="10px" key={item.id}>
+            <Stack spacing="20px" mt="10px" key={item.email}>
               <HStack>
                 <Image borderRadius="40px" w="40px" h="40px" src={inviteBg} />
                 <Box>
-                  <Heading size="xs" textTransform="uppercase">
+                  <Heading size="xs" mt="5px">
                     {item.email}
                   </Heading>
                   <Text pt="2" fontSize="sm" color="gray.500">

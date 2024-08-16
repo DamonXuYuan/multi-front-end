@@ -8,15 +8,14 @@ import { useTranslation } from 'next-i18next'
 import useSWR from 'swr'
 import { boxGetMyList } from '@/api/box'
 
-interface Cover {
-  show_src: string
-  height: number
+interface Box {
+  picture: string
+  title: number
 }
 interface BoxItem {
   id: number
-  title: string
-  cover: Cover
-  start_time: string
+  cover: Box
+  add_time: string
 }
 const BoxListPage = () => {
   const { t } = useTranslation(['box'])
@@ -27,7 +26,7 @@ const BoxListPage = () => {
   }
   const { data: boxData } = useSWR(
     boxGetMyList.key,
-    () => boxGetMyList.fetcher({ page: 1, limit: 10 }),
+    () => boxGetMyList.fetcher({ page: 1, limit: 20, type: 7 }),
     {
       revalidateOnFocus: false,
     }
@@ -61,14 +60,14 @@ const BoxListPage = () => {
             >
               <Box>
                 <Text fontSize="16px" color="#0F182C" mb="12px" fontWeight="bold">
-                  {item.title}
+                  {item.box.title}
                 </Text>
                 <Text fontSize="12px" color="#C6CDD5">
-                  {item.start_time}
+                  {item.add_time}
                 </Text>
               </Box>
               <Image
-                src={item.cover.show_src}
+                src={item.box.picture}
                 alt="Blind Box"
                 objectFit="cover"
                 width="48px"

@@ -11,6 +11,7 @@ import { userLogin } from '@/api/login'
 import { setLocalStorage } from '@/utils/storage'
 import { FailToast } from '@/components/BaseToast'
 import { useConnect } from '@particle-network/auth-core-modal'
+// import ajax from '@/utils/request'
 
 function Login() {
   const router = useRouter()
@@ -35,7 +36,9 @@ function Login() {
   useEffect(() => {
     if (!userLoginData) return
     if (userLoginData?.code === 200) {
-      setLocalStorage('userInfo', JSON.stringify(userLoginData?.data))
+      setLocalStorage('userToken', JSON.stringify(userLoginData?.data?.token))
+      setLocalStorage('userInfo', JSON.stringify(userLoginData?.data?.userInfo))
+      // Ajax.setHeader('token', userLoginData?.data)
       router.push('/')
     } else {
       toast({
@@ -118,10 +121,10 @@ function Login() {
           value={userPassword}
           onChange={(val) => setUserPassword(val?.target?.value)}
         />
-        <Text ml="auto" mb="40px" color="green.100" fontSize="12px" lineHeight="24px">
+        {/* <Text ml="auto" color="green.100" fontSize="12px" lineHeight="24px">
           {t('forgetPWD') as string}
-        </Text>
-        <BaseButton mb="15px" isLoading={userLoginLoading} onClick={() => login()}>
+        </Text> */}
+        <BaseButton mt="40px" mb="15px" isLoading={userLoginLoading} onClick={() => login()}>
           {t('loginButton') as string}
         </BaseButton>
         <BaseButton

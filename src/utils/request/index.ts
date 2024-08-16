@@ -1,11 +1,29 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import Router from 'next/router'
 import { getLocalStorage, removeLocalStorage } from '@/utils/storage'
+import { config } from '@/config'
+// import { config } from '@/config'
 
 // const baseURLMap = new Map() //不同baseUrl的映射
-
 class Ajax {
-  constructor(baseUrl = '') {
+  constructor(baseUrl = config?.baseUrl) {
+    if (process.env.NODE_ENV === 'development') {
+      baseUrl += '/'
+    } else if (process.env.NODE_ENV === 'production') {
+      baseUrl += '/'
+    }
+    if (typeof window !== 'undefined') {
+      const userToken = getLocalStorage('userToken')
+      const token = userToken ? JSON.parse(userToken) : ''
+      if (token) {
+        Ajax.setHeader('token', token)
+      } else {
+        // const { route} = Router
+        // if (route !== '/login') {
+        //   Router.push('/login')
+        // }
+      }
+    }
     this.baseUrl = baseUrl
   }
   public static setHeader(headerName: string, value: string) {
@@ -24,7 +42,7 @@ class Ajax {
     )
   }
 
-  private baseUrl = '' //TODO:添加baseUrl
+  private baseUrl = ''
 
   public request(params: AxiosRequestConfig): Promise<any> {
     const newParams = {
@@ -35,6 +53,7 @@ class Ajax {
     return new Promise((resolve) => {
       axios({ ...newParams, url: `${this.baseUrl}${params.url}` })
         .then((res: AxiosResponse) => {
+          // console.log('res', res)
           if (res.status === 200) {
             switch (res?.data?.code) {
               case 0:
@@ -88,15 +107,23 @@ class Ajax {
     })
   }
 }
-let baseUrl
-if (process.env.NODE_ENV === 'development') {
-  baseUrl = 'http://api.gxsccw.com/api'
-} else if (process.env.NODE_ENV === 'production') {
-  baseUrl = '/'
-}
-if (typeof window !== 'undefined') {
-  const userInfo = getLocalStorage('userInfo')
-  const token = userInfo ? JSON.parse(userInfo).token : ''
-  Ajax.setHeader('token', token)
-}
-export default new Ajax(baseUrl)
+// let baseUrl
+// if (process.env.NODE_ENV === 'development') {
+//   baseUrl = '/api'
+// } else if (process.env.NODE_ENV === 'production') {
+//   baseUrl = '/'
+// }
+// if (typeof window !== 'undefined') {
+//   console.log('window', window)
+//   const userInfo = getLocalStorage('userInfo')
+//   const token = userInfo ? JSON.parse(userInfo).token : ''
+//   if (token) {
+//     Ajax.setHeader('token', token)
+//   } else {
+//     // const { route} = Router
+//     // if (route !== '/login') {
+//     //   Router.push('/login')
+//     // }
+//   }
+// }
+export default new Ajax()

@@ -1,7 +1,8 @@
 import React from 'react'
-import { Flex, VStack, Icon, Text, Box } from '@chakra-ui/react'
+import { Flex, VStack, Icon, Text, Box, useToast } from '@chakra-ui/react'
 import { Home, LockIcon, User, Shuffle } from 'lucide-react'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 type NavItem = {
   icon: React.ComponentType
@@ -45,17 +46,29 @@ const BottomNavbar = ({ items, onItemClick }: BottomNavbarProps) => {
 }
 
 const TabBar: React.FC = () => {
+  const { t } = useTranslation(['home'])
+  const toast = useToast()
   const [activeIndex, setActiveIndex] = React.useState(0)
   const router = useRouter()
   const navItems: NavItem[] = [
-    { icon: Home, url: '/home', label: '首页', isActive: activeIndex === 0 },
-    { icon: Shuffle, url: '', label: '抽签', isActive: activeIndex === 1 },
-    { icon: LockIcon, url: '', label: '质押', isActive: activeIndex === 2 },
-    { icon: User, url: '/user', label: '我的', isActive: activeIndex === 3 },
+    { icon: Home, url: '/', label: t('navHomePage'), isActive: activeIndex === 0 },
+    { icon: Shuffle, url: '', label: t('raffle'), isActive: activeIndex === 1 },
+    { icon: LockIcon, url: '', label: t('navStake'), isActive: activeIndex === 2 },
+    { icon: User, url: '/user', label: t('navMine'), isActive: activeIndex === 3 },
   ]
 
   const handleItemClick = (item: NavItem, index: number) => {
     setActiveIndex(index)
+    if (item.url === '') {
+      toast({
+        // title: '功能开发中',
+        title: t('featureInDevelopment'),
+        status: 'info',
+        duration: 3000,
+        isClosable: true,
+      })
+      return
+    }
     if (item.url.startsWith('http://') || item.url.startsWith('https://')) {
       window.open(item.url, '_blank')
     } else {
