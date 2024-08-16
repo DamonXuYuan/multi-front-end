@@ -9,7 +9,7 @@ import inviteBg from '@/assets/imgs/inviteBg.png'
 import share from '@/assets/imgs/share.png'
 import avatar from '@/assets/imgs/avatar.png'
 import useSWR from 'swr'
-import { inviterelate, invites} from '@/api/user'
+import { inviterelate, invites } from '@/api/user'
 interface InviteItem {
   id: number
   title: string
@@ -24,10 +24,12 @@ const InviteListPage = () => {
     router.back()
   }
   const { data: inviteData } = useSWR(inviterelate.key, () => inviterelate.fetcher())
-  const { data: inviteListData } = useSWR(invites.key, () => invites.fetcher( {
-    page: 1,
-    limit: 200,
-  }), )
+  const { data: inviteListData } = useSWR(invites.key, () =>
+    invites.fetcher({
+      page: 1,
+      limit: 200,
+    })
+  )
   useEffect(() => {
     if (inviteListData && inviteListData.code === 200) {
       setInviteList(inviteListData.data?.list || [])
