@@ -37,7 +37,7 @@ const IndexPage = () => {
       return
     }
     const res = await sendEmailCode.fetcher({ email, type: 2 })
-    if (res.code !== 200) {
+    if (res?.code !== 200) {
       toast({
         title: t('verificationCodeSendFailed'),
         description: res.msg,
