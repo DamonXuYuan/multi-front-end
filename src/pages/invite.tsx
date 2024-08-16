@@ -81,7 +81,7 @@ const InvitePage = () => {
             justifyContent="space-between"
           >
             <Box>
-              <Text fontSize="sm" color="gray.400">
+              <Text fontSize="xl" color="gray">
                 {t('inviteCode')}
               </Text>
               <HStack justifyContent="space-between" mt="5px">
@@ -104,7 +104,7 @@ const InvitePage = () => {
               </HStack>
             </Box>
             <Box>
-              <Text fontSize="sm" color="gray.400">
+              <Text fontSize="xl" color="gray">
                 {t('inviteLink')}
               </Text>
               <HStack justifyContent="space-between" mt="5px">

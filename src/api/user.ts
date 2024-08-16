@@ -20,3 +20,7 @@ export const editEmail = {
   fetcher: (params: Record<string, any>) => ajax.post('/common/user/editEmail', params),
   key: '/common/user/editEmail',
 }
+export const invites = {
+  fetcher: (params: Record<string, any>) => ajax.get('/api/user/invites', params),
+  key: '/api/user/invites',
+}
